@@ -112,31 +112,31 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         	}
 			update();
         }
-        //Insert
-        if(e.getSource() == SymTable.operButton.Insert){
-        	String Values = SymTable.Input.getText();
-			String[] nodeValue = Values.split(" ");
-			int numberNode = nodeValue.length;
-			for (int i = 0; i < numberNode; i++) {
-				try {
-					int newNode = Integer.parseInt(nodeValue[i]);
-					if(newNode > 0 && newNode <= 999) {
-						int rX = WIDTH /2;
-						int rY = 0;
-						X = 0;
-						Y = 0;
-						insertNode(1, newNode);
-						drawNode(g , rX + X , rY + 100 * Y , Integer.toString(newNode));
-						sleep(timeSleep);
-					}else {
-						throw new Exception();
-						}
-				}catch(Exception e2){
-                	JOptionPane.showMessageDialog(null,"Please enter integer");
-				}
-            }
-			update();
-        }
+    	//Insert
+    	if(e.getSource() == SymTable.operButton.Insert){
+    		String Values = SymTable.Input.getText();
+ 			String[] nodeValue = Values.split(" ");
+ 			int numberNode = nodeValue.length;
+ 			for (int i = 0; i < numberNode; i++) {
+ 				try {
+ 					int newNode = Integer.parseInt(nodeValue[i]);
+ 					if(newNode > 0 && newNode <= 999) {
+ 						int rX = WIDTH /2;
+ 						int rY = 0;
+ 						X = 0;
+ 						Y = 0;
+ 						insertNode(1, newNode);
+ 						drawNode(g , rX + X , rY + 100 * Y , Integer.toString(newNode));
+ 						sleep(timeSleep);
+ 					}else {
+ 						throw new Exception();
+ 						}
+ 				}catch(Exception e2){
+                 	JOptionPane.showMessageDialog(null,"Please enter integer");
+ 				}
+             }
+ 			update();
+         }
         //Delete
         if(e.getSource() == SymTable.operButton.Delete){
         	//bat dau tu nut root xem xet lan luot phan tu voi gia tri can xoa
@@ -192,6 +192,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         }
         
         if( BST[Index].getValue() == 0 ) {
+        	Pseudo.Line5.setBackground(Color.GREEN);
             n += 1;
             BST[Index].setValue(Value);
             BST[Index].setX(WIDTH /2 + X);
@@ -202,7 +203,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
             return;
         }
         //Chuyen sang cay con phai
-        if( BST[Index].getValue() < Value){    	
+        if( BST[Index].getValue() < Value){
             blip(Index, Color.BLUE, Color.BLACK);
             Y += 1;
             X = X + WIDTH / (int) Math.pow(2,  Y + 1);
@@ -236,19 +237,19 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		//gia tri xoa lon hon gia tri cua node i => xet cay con phai
 		if(BST[index].getValue() < Value) {
 			//nut dang duoc duyet co mau cam
-			blip(index,Color.ORANGE);
+			blip(index,Color.ORANGE, Color.BLACK);
 			deleteNode(right(index), Value);
 		}else if(BST[index].getValue() > Value){ //Neu gia tri xoa be hon gia tri cua node i => xet cay con trai
-			blip(index,Color.ORANGE);
+			blip(index,Color.ORANGE, Color.BLACK);
 			deleteNode(left(index), Value);
 		}
 		//step 3
 		// nut xet bang gia tri can xoa
 		else {
 			n -= 1;
-			blip(index,Color.ORANGE);
+			blip(index,Color.ORANGE, Color.BLACK);
 			//nut co gia tri xoa can tim bao mau do
-			blip(index,Color.RED);
+			blip(index,Color.RED, Color.BLACK);
 			//TH1: Nut khong co con (xoa nut la)
 			if(BST[left(index)].getValue() == 0 & BST[right(index)].getValue() == 0) {
 				nodeLeaf(index);
@@ -268,12 +269,12 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 					//Tim nut co gia tri lon nhat cua cay con trai (nut cuoi cung ben phai)
 					while(!isNull(right(current))) {
 						//nut duoc duyet bao mau cam
-						blip(current,Color.ORANGE);
+						blip(current, Color.ORANGE, Color.BLACK);
 						current = right(current);
 					}
-					blip(current,Color.ORANGE);
+					blip(current,Color.ORANGE, Color.BLACK);
 					//nut duoc thay the bao mau xanh
-					blip(current,Color.GREEN);
+					blip(current,Color.GREEN, Color.BLACK);
 					//gan lai gia tri cho nut moi
 					BST[index].setValue(BST[current].getValue());
 					lastIndex = -1;
@@ -330,18 +331,18 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		//khi vi tri nut bang voi gia tri dang tim kiem cho no noi len mau xanh
 		if(BST[index].getValue() == Value) {
 			//nut dang duoc duyet den co mau cam
-			blip(index,Color.ORANGE);
+			blip(index,Color.ORANGE, Color.BLACK);
 			//nut co gia tri can tim hien mau do
-			blip(index,Color.RED);
+			blip(index,Color.RED, Color.BLACK);
 			//gia tri dang xet nho hon phan tu can tim
 			//xet cay ben phai cac nut duoc duyet lan luot noi len mau cam
 		}else if(BST[index].getValue() < Value) {
-			blip(index,Color.ORANGE);
+			blip(index,Color.ORANGE, Color.BLACK);
 			searchNode(right(index), Value);
 		}
 		//xet cay ben trai
 		else{
-			blip(index,Color.ORANGE);
+			blip(index,Color.ORANGE, Color.BLACK);
 			searchNode(left(index), Value);
 		}
 	}
@@ -369,7 +370,9 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		return s;
 	}
 	
+	
     public void blip(int i, Color beforeColor, Color afterColor){
+
         Graphics g1 = treePanel.getGraphics();
         Graphics2D g = (Graphics2D)g1;
         //Duong vien cho hinh tron
@@ -382,18 +385,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         g.setColor(afterColor);
         g.drawOval(BST[i].getX() - size , BST[i].getY() , 35, 35);    
     } 
-    
-    public void blip(int i , Color r){
-        Graphics g1 = treePanel.getGraphics();
-        Graphics2D g = (Graphics2D)g1;
-        g.setStroke(new BasicStroke(2));
-        g.setColor(r);
-        g.drawOval(BST[i].getX() - size , BST[i].getY() , 35 , 35);
-        sleep(timeSleep);
-        g.setColor(Color.black);
-        g.drawOval(BST[i].getX() - size , BST[i].getY() , 35, 35);
-        
-    }
+
     
     //Dung lai khoang thoi gian time
   	public void sleep(int time) {
@@ -432,7 +424,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
             g.drawLine(BST[parPos].getX() - size/2  , BST[parPos].getY() + size , 
             		BST[lastIndex].getX() - size/2  , BST[lastIndex].getY());   
             
-            blip(lastIndex, Color.YELLOW); 
+            blip(lastIndex, Color.YELLOW, Color.BLACK); 
         }   
     }
     public void drawNode(int i) {
@@ -511,7 +503,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 	}  
 	public static void main(String[] args) {
 		for(int i = 0;i < defaultsize;i++) {
-			BST[i] = new Node();
+			BST[i] = new Node(0);
 		}
 	    new BinarySearchTreeGUI(); 
 	}
