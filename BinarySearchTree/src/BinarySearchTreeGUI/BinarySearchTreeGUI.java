@@ -162,8 +162,10 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         if(e.getSource() == SymTable.operButton.Delete){
         	//bat dau tu nut root xem xet lan luot phan tu voi gia tri can xoa
         	String Values = SymTable.Input.getText();
-		String[] nodeValue = Values.split(" ");
-		int numberNode = nodeValue.length;
+    		Values = Values.trim();
+    		Values = Values.replaceAll("\\s+", " ");
+ 		String[] nodeValue = Values.split(" ");
+ 		int numberNode = nodeValue.length;
 		for (int i = 0; i < numberNode; i++) {
 			int newNode = Integer.parseInt(nodeValue[i]);
 			deleteNode(1, newNode);
@@ -173,15 +175,17 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         //Find
       	if(e.getSource() ==SymTable.operButton.Find) {
       		String Values = SymTable.Input.getText();
-		String[] nodeValue = Values.split(" ");
-		int numberNode = nodeValue.length;
+    		Values = Values.trim();
+    		Values = Values.replaceAll("\\s+", " ");
+ 		String[] nodeValue = Values.split(" ");
+ 		int numberNode = nodeValue.length;
 		for (int i = 0; i < numberNode; i++) {
 			try {
 				int newNode = Integer.parseInt(nodeValue[i]);
 				searchNode(1, newNode);
-				JOptionPane.showMessageDialog(null,"Yes");
+				JOptionPane.showMessageDialog(null,nodeValue[i] + " found");
 			}catch(Exception e2){
-                		JOptionPane.showMessageDialog(null,"No");
+                		JOptionPane.showMessageDialog(null,nodeValue[i] + " not found");
 				}
             		}
 		update();
