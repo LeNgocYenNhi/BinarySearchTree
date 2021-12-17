@@ -35,11 +35,12 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
     public int X = 0;
     public int Y = 0;
     public static int lastIndex = -1;
-
+    
     public SymbolTable SymTable = new SymbolTable();
     public Traversal Traver = new Traversal();
     public Pseudocode Pseudo = new Pseudocode();
     public OperationButton Button = new OperationButton();
+    public Speed _Speed = new Speed();
     JPanel mainPanel = new JPanel(new GridLayout(1 , 1));
     JPanel treePanel = new JPanel();
 
@@ -62,10 +63,8 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		for(JLabel label: Pseudo.Labels) {
 			add(label);
 		}
-
 		SymTable.SelectionSpeed._Speed.addActionListener(this);
 		SymTable._TraversalItem.SelectTraversal.addActionListener(this);
-		//add(SymTable._TraversalItem.Traversal);
         add(mainPanel);
         mainPanel.add(treePanel);
         treePanel.setBackground(Color.WHITE);
@@ -80,6 +79,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
     	Graphics g = treePanel.getGraphics();
+    	
     	String speed = (String) SymTable.SelectionSpeed._Speed.getSelectedItem();
     	switch(speed) {
     	case "Fast":
@@ -91,6 +91,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
     	case "Slow":
     		timeSleep = 2000;
     	}
+    	
     	if(e.getSource() == SymTable._TraversalItem.SelectTraversal){
     		String traver = (String) SymTable._TraversalItem.SelectTraversal.getSelectedItem();
     		switch(traver) {
@@ -106,15 +107,10 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
     	}
         
     	//Create
-    	if(e.getSource() == SymTable.operButton.Empty){
-        	for(int i = 0; i < defaultsize; i++) {
-        		BST[i].setValue(0);
-        	}
-			update();
-        }
-    	//Insert
-    	if(e.getSource() == SymTable.operButton.Insert){
+    	if(e.getSource() == SymTable.operButton.Create){
     		String Values = SymTable.Input.getText();
+    		Values = Values.trim();
+    		Values = Values.replaceAll("\\s+", " ");
  			String[] nodeValue = Values.split(" ");
  			int numberNode = nodeValue.length;
  			for (int i = 0; i < numberNode; i++) {
@@ -132,9 +128,34 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
  						throw new Exception();
  						}
  				}catch(Exception e2){
-                 	JOptionPane.showMessageDialog(null,"Please enter integer");
+                 	JOptionPane.showMessageDialog(null,"Please enter values");
  				}
              }
+ 			update();
+        	
+        }
+    	//Insert
+    	if(e.getSource() == SymTable.operButton.Insert){
+    		String Values = SymTable.Input.getText();
+    		Values = Values.trim();
+    		Values = Values.replaceAll("\\s+", " ");
+    		try {
+				int newNode = Integer.parseInt(Values);
+				if(newNode > 0 && newNode <= 999) {
+					int rX = WIDTH /2;
+					int rY = 0;
+					X = 0;
+					Y = 0;
+					insertNode(1, newNode);
+					drawNode(g , rX + X , rY + 100 * Y , Integer.toString(newNode));
+					sleep(timeSleep);
+				}else {
+					throw new Exception();
+				}
+			}catch(Exception e2){
+				JOptionPane.showMessageDialog(null,"Please enter value");
+			}
+    		
  			update();
          }
         //Delete
@@ -149,7 +170,6 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         	}
 			update();
         }
-
         //Find
       	if(e.getSource() ==SymTable.operButton.Find) {
       		String Values = SymTable.Input.getText();
@@ -227,8 +247,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 	 * Xac dinh nut can xoa
 	 * @param index
 	 * @param Value
-	 */
-   
+	 */  
 	public void deleteNode(int index ,int Value) {
 		if(BST[index].getValue() == 0) {
 			return; 
@@ -278,7 +297,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 					//gan lai gia tri cho nut moi
 					BST[index].setValue(BST[current].getValue());
 					lastIndex = -1;
-					drawNode(index);
+					drawNode(treePanel.getGraphics(), BST[index].getX(), BST[index].getY(), Integer.toString(BST[index].getValue()));
 					if(!isNull(left(current)))
 						insertAgain = bfsPath(left(current));
 					else
@@ -369,11 +388,8 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		}
 		return s;
 	}
-	
-	
     public void blip(int i, Color beforeColor, Color afterColor){
-
-        Graphics g1 = treePanel.getGraphics();
+    	Graphics g1 = treePanel.getGraphics();
         Graphics2D g = (Graphics2D)g1;
         //Duong vien cho hinh tron
         g.setStroke(new BasicStroke(2));
@@ -385,7 +401,6 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         g.setColor(afterColor);
         g.drawOval(BST[i].getX() - size , BST[i].getY() , 35, 35);    
     } 
-
     
     //Dung lai khoang thoi gian time
   	public void sleep(int time) {
@@ -395,9 +410,10 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
   			e.printStackTrace();
   		}	
   	}
+  	//Ve node
     public void drawNode(Graphics g1 , int x , int y, String Value){
         Graphics2D g = (Graphics2D)g1;
-        g.setStroke(new BasicStroke(1));
+        g.setStroke(new BasicStroke(2));
         //Set mau cho hinh tron cua node
         g.setColor(Color.WHITE); 
         g.fillOval(x - size, y, size, size);
@@ -418,25 +434,26 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
       	}
         if(lastIndex != -1){  
         	//Set do rong cua duong thang
-            g.setStroke(new BasicStroke(3));
+            g.setStroke(new BasicStroke(2));
+            g.setColor(Color.BLACK);
             int parPos = parent(lastIndex);
-            
             g.drawLine(BST[parPos].getX() - size/2  , BST[parPos].getY() + size , 
             		BST[lastIndex].getX() - size/2  , BST[lastIndex].getY());   
             
             blip(lastIndex, Color.YELLOW, Color.BLACK); 
         }   
     }
-    public void drawNode(int i) {
-		drawNode(treePanel.getGraphics(), BST[i].getX(), BST[i].getY(), Integer.toString(BST[i].getValue()));
-		
-	}
+
 	public void drawLine(int i,int j) {
 		if(i == j) {
 			return;
 		}
 		Graphics2D g = (Graphics2D)treePanel.getGraphics();
-		g.drawLine(BST[i].getX() -  35 / 2 , BST[i].getY() + 35 , BST[j].getX() - 35 / 2 , BST[j].getY());
+		g.setStroke(new BasicStroke(2));
+        g.setColor(Color.BLACK);
+		//drawLine(x1, y1, x2, y2) ve duong thang noi giua hai diem co toa do (x1, y1) (x2, y2)
+		g.drawLine(BST[i].getX() -  35/ 2 , BST[i].getY() + 35 , BST[j].getX() - 35 / 2 , BST[j].getY());
+		
 	}
     /**
 	 * nut la (su dung de xoa)
@@ -452,23 +469,13 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 	    g.drawLine(BST[parent(i)].getX() - 35 / 2 , BST[parent(i)].getY() + 35 , BST[i].getX() - 35 / 2 , BST[i].getY());
 	    BST[i].setValue(0);
 	}
-    //Ve doan thang noi giua hai node 
-  	public void drawLine(int x1, int y1, int x2, int y2) {
-  		Graphics g = this.getGraphics();
-  		Graphics2D g2 = (Graphics2D) g;
-  		//Set mau cho doan thang noi giua hai node
-  		g.setColor(Color.ORANGE);
-  		g2.setStroke(new BasicStroke(5));
-  		g2.drawLine(x1, y1, x2, y2);
-  	}
+
   	public void PreorderTraversal(int Index) {
   		if(BST[Index].getValue() == 0) {
   			return;
   		}
         blip(Index, Color.BLUE, Color.BLACK);
-             
         PreorderTraversal(left(Index));
-             
         PreorderTraversal(right(Index));	
   	}
   	public void InorderTraversal(int Index) {
@@ -488,7 +495,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         blip(Index, Color.BLUE, Color.BLACK);
   	}
   	
-	private void update() {
+	public void update() {
 		Traver.setInorder("");
 		Traver.Inorder(1);
 		Traver.setPreorder("");
@@ -499,7 +506,6 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		Traver.InorderField.setText(Traver.getInorder());
 		Traver.PostorderField.setText(Traver.getPostorder());
 		SymTable.Input.setText("");
-		
 	}  
 	public static void main(String[] args) {
 		for(int i = 0;i < defaultsize;i++) {
