@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 
 
 public class BinarySearchTreeGUI extends JFrame implements ActionListener {
-	public static int defaultsize = 50;		//so luong node toi da
+    public static int defaultsize = 50;		//so luong node toi da
     public static Node[] BST = new Node[defaultsize];
     public int n = 0;
    
@@ -55,17 +55,17 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         add(SymTable.Input);
 
         for(JLabel label: Traver.Labels) {
-			add(label);
-		}
-		for(JTextField textfield: Traver.TextFields) {
-			add(textfield);
-		}
-		for(JLabel label: Pseudo.Labels) {
-			add(label);
-		}
-		SymTable.SelectionSpeed._Speed.addActionListener(this);
-		SymTable._TraversalItem.SelectTraversal.addActionListener(this);
-		SymTable._SearchItem.SelectSearch.addActionListener(this);
+		add(label);
+	}
+	for(JTextField textfield: Traver.TextFields) {
+		add(textfield);
+	}
+	for(JLabel label: Pseudo.Labels) {
+		add(label);
+	}
+	SymTable.SelectionSpeed._Speed.addActionListener(this);
+	SymTable._TraversalItem.SelectTraversal.addActionListener(this);
+	SymTable._SearchItem.SelectSearch.addActionListener(this);
         add(mainPanel);
         mainPanel.add(treePanel);
         treePanel.setBackground(Color.WHITE);
