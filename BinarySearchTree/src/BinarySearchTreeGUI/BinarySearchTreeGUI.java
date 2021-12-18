@@ -65,6 +65,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		}
 		SymTable.SelectionSpeed._Speed.addActionListener(this);
 		SymTable._TraversalItem.SelectTraversal.addActionListener(this);
+		SymTable._SearchItem.SelectSearch.addActionListener(this);
         add(mainPanel);
         mainPanel.add(treePanel);
         treePanel.setBackground(Color.WHITE);
@@ -173,25 +174,51 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 			update();
         }
         //Find
-      	if(e.getSource() ==SymTable.operButton.Find) {
-      		String Values = SymTable.Input.getText();
-    		Values = Values.trim();
-    		Values = Values.replaceAll("\\s+", " ");
- 			String[] nodeValue = Values.split(" ");
- 			int numberNode = nodeValue.length;
-			for (int i = 0; i < numberNode; i++) {
-				try {
-					int newNode = Integer.parseInt(nodeValue[i]);
-					searchNode(1, newNode);
-					JOptionPane.showMessageDialog(null,nodeValue[i] + " found");
+        if(e.getSource() ==SymTable._SearchItem.SelectSearch) {
+    		String search = (String) SymTable._SearchItem.SelectSearch.getSelectedItem();
+    		switch(search) {
+    		case "Find":
+    			String Values = SymTable.Input.getText();
+        		Values = Values.trim();
+        		Values = Values.replaceAll("\\s+", " ");
+     			String[] nodeValue = Values.split(" ");
+     			int numberNode = nodeValue.length;
+    			for (int i = 0; i < numberNode; i++) {
+    				try {
+    					int newNode = Integer.parseInt(nodeValue[i]);
+    					searchNode(1, newNode);
+    					JOptionPane.showMessageDialog(null,"Found value "+nodeValue[i]);
+    				}catch(Exception e2){
+    					JOptionPane.showMessageDialog(null,"Value "+nodeValue[i]+" is not in the BST!");
+    				}
+    			}
+    			update();
+    			break;
+    		case "Max":
+    			try {
+					
+					findMaximum(1);
+					JOptionPane.showMessageDialog(null,"Maximum value found.");
 				}catch(Exception e2){
-                	JOptionPane.showMessageDialog(null,nodeValue[i] + " not found");
+					JOptionPane.showMessageDialog(null,"Tree is empty!");
 				}
-            }
-			update();
-				
-      	}
-      	
+    			update();
+    			break;
+    		case "Min":
+    			try {
+					
+					findMinimum(1);
+					JOptionPane.showMessageDialog(null,"Minimum value found.");
+				}catch(Exception e2){
+					JOptionPane.showMessageDialog(null,"Tree is empty!");
+				}
+    			update();
+    			break;
+
+    		}
+    		
+
+    	}
     }
     public int left(int i){
         return 2 * i;
@@ -369,6 +396,44 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 			searchNode(left(index), Value);
 		}
 	}
+	//============== Ham tim kiem gia tri max
+  	public  void findMaximum(int index) {
+  		if(BST[index].getValue() == 0) {
+  			return; 
+  		}
+  		else {
+
+  			while(!isNull(right(index))) {
+
+  				blip(index,Color.ORANGE, Color.BLACK);
+  				index = right(index);
+  			}
+  			blip(index,Color.ORANGE, Color.BLACK);
+
+  			blip(index,Color.RED, Color.BLACK);
+
+  		}
+  	}
+  	//============== Ham tim kiem gia tri min
+  	public  void findMinimum(int index) {
+  		if(BST[index].getValue() == 0) {
+  			return;
+  		}
+
+  		else {
+
+  			while(!isNull(left(index))) {
+
+  				blip(index,Color.ORANGE, Color.BLACK);
+  				index = left(index);
+  			}
+  			blip(index,Color.ORANGE, Color.BLACK);
+
+  			blip(index,Color.RED, Color.BLACK);
+
+  		}
+  	}
+  	
 	public boolean isNull(int i) {
 		if(BST[i].getValue() == 0) {
 			return true;
