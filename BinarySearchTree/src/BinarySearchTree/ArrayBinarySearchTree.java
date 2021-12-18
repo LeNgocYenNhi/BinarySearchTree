@@ -1,8 +1,13 @@
 package BinarySearchTree;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 
 public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySearchTreeInterface<T> {
 	T[] tree;
@@ -111,7 +116,7 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 			n += 1;
 			tree[index] = Value;
 			if(index != 1) {
-				n = index;
+				lastIndex = index;
 			}
 			return;
 		}//de quy sang cay con phai
@@ -125,31 +130,97 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 		}
 		
 	}
-	
-	public void find(T value) {
-		int i = 1;// bo dem duyet mang
-		boolean found = false;
-		while (i < tree.length) { // ket thuc khi duyet het mang hoac tim thay value
-			if (value.compareTo(tree[i]) < 0) { // du lieu duoc tim kiem nho hon du lieu co trong mang
-				// dich chuyen sang ben trai cua cay
-				i = (2 * i) ; 
-			}else if (value.compareTo(tree[i]) > 0) {
-				//dich chuyen sang ben phai cua cay
-				i = (2 * i) + 1;
-			}else { // value giong voi tree[i]
-				found = true;
-				break;
+	/*
+	public void deleteNode(int index ,T Value) {
+		if(getValue(index) == null) {
+			return;
+		}
+		//step1
+		//gia tri xoa lon hon gia tri cua node i => xet cay con phai
+		if(Value.compareTo(getValue(index)) > 0) {
+			deleteNode(right(index), Value);
+		}else if(Value.compareTo(getValue(index)) < 0){ //Neu gia tri xoa be hon gia tri cua node i => xet cay con trai
+			deleteNode(left(index), Value);
+		}
+		//step 3
+		// nut xet bang gia tri can xoa
+		else {
+			n -= 1;
+			if(getValue(left(index)) == null && getValue(right(index)) == null) {
+				tree[index] = null;
+			}else {
+				//TH2: Nut co con
+				String insertAgain;
+				int current = left(index);
+				// Neu node xoa chi co con phai
+				if(getValue(left(index)) == null && getValue(right(index)) != null){
+					insertAgain = bfsPath(right(index));
+				}
+				//Neu node xoa chi co con trai
+				else if(getValue(left(index)) != null && getValue(right(index)) == null ) {
+					insertAgain = bfsPath(left(index));
+				}else {
+					//Neu node xoa co du hai con trai va phai
+					//Tim nut co gia tri lon nhat cua cay con trai (nut cuoi cung ben phai)
+					while(getValue(right(current)) != null) {
+						//nut duoc duyet bao mau cam
+						current = right(current);
+					}
+
+					//gan lai gia tri cho nut moi
+					tree[index] = tree[current];
+					lastIndex = -1;
+					
+					if(getValue(left(current)) != null)
+						insertAgain = bfsPath(left(current));
+					else
+						insertAgain ="";
+				}
+				Scanner scan = new Scanner(insertAgain);
+				if((getValue(left(index)) == null && getValue(right(index)) != null|| 
+						(getValue(left(index))  != null && getValue(right(index)) == null))) {
+					deleteTree(index);
+				}
+				else {
+					deleteTree(current);
+				}
+				
 			}
 		}
-		 //value duoc tim thay
-		if (found) {
-			System.out.println(value + " found at " + i + ".");
-		// value khong duoc tim thay	
-		}else {
-			System.out.println(value + " not found.");
-		}
 	}
-	
+	public void deleteTree(int i){
+		Queue<Integer> nextNode = new LinkedList<>();
+		nextNode.add(i);
+		while(!nextNode.isEmpty()){
+			if(getValue(left(nextNode.peek())) != null) {
+				nextNode.add(left(nextNode.peek()));
+			}
+		    if(getValue(right(nextNode.peek())) != null ) {
+		    	nextNode.add(right(nextNode.peek()));
+		    }
+		    tree[nextNode.peek()] = null;
+		    nextNode.remove(nextNode.peek());
+		}
+		        
+	}
+	public String bfsPath(int i) {
+		String s ="";
+		Queue<Integer> queue = new LinkedList<>();
+		queue.add(i);
+		while(!queue.isEmpty()) {
+			n += 1;
+			s += getValue(queue.peek()) +" ";
+			if(getValue(left(queue.peek())) != null) {
+				queue.add(left(queue.peek()));
+			}
+			if(getValue(right(queue.peek())) != null) {
+				queue.add(right(queue.peek()));
+			}
+			queue.remove(queue.peek());
+		}
+		return s;
+	}
+*/
 	public int[] findDelete(T value) {
 		int[] indices = new int[2];
 		boolean found = false;
@@ -275,6 +346,32 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 		}
 	}
 
+	public void find(T value) {
+		int i = 1;// bo dem duyet mang
+		boolean found = false;
+		while (i < tree.length) { // ket thuc khi duyet het mang hoac tim thay value
+			if (value.compareTo(tree[i]) < 0) { // du lieu duoc tim kiem nho hon du lieu co trong mang
+				// dich chuyen sang ben trai cua cay
+				i = (2 * i) ; 
+			}else if (value.compareTo(tree[i]) > 0) {
+				//dich chuyen sang ben phai cua cay
+				i = (2 * i) + 1;
+			}else { // value giong voi tree[i]
+				found = true;
+				break;
+			}
+		}
+		 //value duoc tim thay
+		if (found) {
+			System.out.println(value + " found at " + i + ".");
+		// value khong duoc tim thay	
+		}else {
+			System.out.println(value + " not found.");
+		}
+	}
+	
+
+
 	public int height(int i) {
 		if(tree[i] == null) {
 			return 0;
@@ -307,24 +404,30 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 		}
 	}
 		
-	public T findMin() {
-		T result = null;
-		int currentIndex = 1;
-		while ((currentIndex*2 + 1 <= n) && (tree[currentIndex*2 ] != null)) {
-			currentIndex = currentIndex*2;
-		}
-		result = tree[currentIndex];
-		return result;
+	public T findMin(int index) {
+		if(tree[index] == null) {
+  			return null;
+  		}
+
+  		else {
+  			while(tree[left(index)] != null) {
+  				index = left(index);
+  			}
+  		}
+  		return tree[index];
 	}
 	
-	public T findMax() {
-		T result = null;
-		int currentIndex = 1;
-		while ((currentIndex*2 + 1 <= n) && (tree[currentIndex*2+1] != null) ) {
-			currentIndex = currentIndex*2 +1;
-		}
-		result = tree[currentIndex];
-		return result;
+	public T findMax(int index) {
+		if(tree[index] == null) {
+  			return null; 
+  		}
+  		else {
+  			while(tree[right(index)] != null) {
+  				index = right(index);
+  			}
+  		}
+  		return tree[index];
+		
 	}
 
 	public T root() {
@@ -418,12 +521,12 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 
 	@Override
 	public T Min() {
-		return findMin();
+		return findMin(1);
 	}
 
 	@Override
 	public T Max() {
-		return findMax();
+		return findMax(1);
 	}
 
 	@Override
@@ -431,6 +534,7 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 		insert(1, value);
 		
 	}
+
 	
 	
 	

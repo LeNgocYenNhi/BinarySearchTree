@@ -5,13 +5,11 @@ import javax.swing.JPanel;
 
 
 public class OperationButton extends Button {
-JButton Create = new JButton(), Random = new JButton(),  Insert = new JButton(), Delete = new JButton();
+	JButton Create = new JButton(), Random = new JButton(),  Insert = new JButton(),
+			SkewedRight = new JButton(), SkewedLeft = new JButton(), Delete = new JButton();
 	
-	JButton Buttons[] = {Create, Random, Insert, Delete};
+	JButton Buttons[] = {Create, Random, Insert, Delete, SkewedRight, SkewedLeft};
 	JPanel ButtonPanel = new JPanel();
-	Speed SelectionSpeed = new Speed();
-	TraversalItem traver = new TraversalItem();
-	SearchItem search = new SearchItem();
 	public OperationButton() {
 		creatOperationButton();
 	}
@@ -20,6 +18,8 @@ JButton Create = new JButton(), Random = new JButton(),  Insert = new JButton(),
 		Random.setText("Random");
 		Insert.setText("Insert");
 		Delete.setText("Delete");
+		SkewedRight.setText("SkewedRight");
+		SkewedLeft.setText("SkwedLeft");
 		
 		for(JButton button: Buttons) {
 			button.setBackground(getBG_COLOR());
