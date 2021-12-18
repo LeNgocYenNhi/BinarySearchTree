@@ -10,9 +10,9 @@ public class SymbolTable {
 	OperationButton operButton = new OperationButton();
 	Speed SelectionSpeed = new Speed();
 	TraversalItem _TraversalItem = new TraversalItem();
-	PredecessorSuccessor _PredecessorSuccessor = new PredecessorSuccessor();
 	JPanel Panel = new JPanel();
 	JTextField Input = new JTextField();
+	SearchItem _SearchItem = new SearchItem();
 	
 	public SymbolTable(){
 		creatSymbolTable();
@@ -25,9 +25,9 @@ public class SymbolTable {
 		for(JButton button: operButton.Buttons) {
 			Panel.add(button);
 		}
+		Panel.add(_SearchItem.SelectSearch);
 		Panel.add(SelectionSpeed._Speed);
 		Panel.add(_TraversalItem.SelectTraversal);
-		Panel.add(_PredecessorSuccessor._PredecessorSuccessor);
 		Input.setBounds(5, 5, 176, 27);
 		Input.setBackground(Color.WHITE);
 	}

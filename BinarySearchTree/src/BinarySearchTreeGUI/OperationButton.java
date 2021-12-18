@@ -5,22 +5,21 @@ import javax.swing.JPanel;
 
 
 public class OperationButton extends Button {
-JButton Empty = new JButton(), Random = new JButton(),  Insert = new JButton(), Delete = new JButton(), Find = new JButton(), Save = new JButton();
+JButton Create = new JButton(), Random = new JButton(),  Insert = new JButton(), Delete = new JButton();
 	
-	JButton Buttons[] = {Empty, Random, Insert, Delete, Find, Save};
+	JButton Buttons[] = {Create, Random, Insert, Delete};
 	JPanel ButtonPanel = new JPanel();
 	Speed SelectionSpeed = new Speed();
 	TraversalItem traver = new TraversalItem();
+	SearchItem search = new SearchItem();
 	public OperationButton() {
 		creatOperationButton();
 	}
 	public void creatOperationButton() {
-		Empty.setText("Empty");
+		Create.setText("Create");
 		Random.setText("Random");
 		Insert.setText("Insert");
 		Delete.setText("Delete");
-		Find.setText("Find");
-		Save.setText("Save");
 		
 		for(JButton button: Buttons) {
 			button.setBackground(getBG_COLOR());
