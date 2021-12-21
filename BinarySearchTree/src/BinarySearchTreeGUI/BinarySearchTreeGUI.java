@@ -20,7 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class BinarySearchTreeGUI extends JFrame implements ActionListener {
-	public static int defaultsize = 1000;		
+
+    public static int defaultsize = 1000;		
     public static Node[] BST = new Node[defaultsize];
     public int n = 0;
    
@@ -55,18 +56,18 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         add(SymTable.Input);
 
         for(JLabel label: Traver.Labels) {
-			add(label);
-		}
-		for(JTextField textfield: Traver.TextFields) {
-			add(textfield);
-		}
-		for(JLabel label: Pseudo.Labels) {
-			add(label);
-		}
+		add(label);
+	}
+	for(JTextField textfield: Traver.TextFields) {
+		add(textfield);
+	}
+	for(JLabel label: Pseudo.Labels) {
+		add(label);
+	}
 		
-		SymTable.SelectionSpeed._Speed.addActionListener(this);
-		SymTable._TraversalItem.SelectTraversal.addActionListener(this);
-		SymTable._SearchItem.SelectSearch.addActionListener(this);
+	SymTable.SelectionSpeed._Speed.addActionListener(this);
+	SymTable._TraversalItem.SelectTraversal.addActionListener(this);
+	SymTable._SearchItem.SelectSearch.addActionListener(this);
         add(mainPanel);
         mainPanel.add(treePanel);
         treePanel.setBackground(Color.WHITE);
@@ -88,10 +89,10 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
     		timeSleep = 500;
     		break;
     	case "Normal":
-    		timeSleep = 800;
+    		timeSleep = 1000;
     		break;
     	case "Slow":
-    		timeSleep = 4000;
+    		timeSleep = 2000;
     	}
     	
     	if(e.getSource() == SymTable._TraversalItem.SelectTraversal){
@@ -108,53 +109,53 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
     		}
     	}
     	String Values = SymTable.Input.getText();
-		Values = Values.trim();
-		Values = Values.replaceAll("\\s+", " ");
-		String[] nodeValue = Values.split(" ");
-		int numberNode = nodeValue.length;
+	Values = Values.trim();
+	Values = Values.replaceAll("\\s+", " ");
+	String[] nodeValue = Values.split(" ");
+	int numberNode = nodeValue.length;
     	//Create
     	if(e.getSource() == SymTable.operButton.Create){
- 			for (int i = 0; i < numberNode; i++) {
- 				try {
- 					int newNode = Integer.parseInt(nodeValue[i]);
- 					if(newNode > 0 && newNode <= 999) {
- 						int rX = WIDTH /2;			
- 						int rY = HEIGHT / 40;
- 						X = 0;
- 						Y = 0;
- 						insertNode(1, newNode);
- 						drawNode(g , rX + X , rY + 80 * Y , Integer.toString(newNode));
- 						sleep(timeSleep);
- 					}else {
- 						throw new Exception();
- 						}
- 				}catch(Exception e2){
-                 	JOptionPane.showMessageDialog(null,"Please enter values");
- 				}
-             }
- 			update();
+ 		for (int i = 0; i < numberNode; i++) {
+ 			try {
+ 				int newNode = Integer.parseInt(nodeValue[i]);
+ 				if(newNode > 0 && newNode <= 999) {
+ 					int rX = WIDTH / 2;			
+ 					int rY = HEIGHT / 40;
+ 					X = 0;
+ 					Y = 0;
+ 					insertNode(1, newNode);
+ 					drawNode(g , rX + X , rY + 80 * Y , Integer.toString(newNode));
+ 					sleep(timeSleep);
+ 				}else {
+ 					throw new Exception();
+ 					}
+ 			}catch(Exception e2){
+                 JOptionPane.showMessageDialog(null,"Please enter values");
+ 			}
+            	}
+ 		update();
         	
         }
     	//Insert
     	if(e.getSource() == SymTable.operButton.Insert){
     		try {
-				int newNode = Integer.parseInt(Values);
-				if(newNode > 0 && newNode <= 999) {
-					int rX = WIDTH /2;
-					int rY = HEIGHT / 40;
-					X = 0;
-					Y = 0;
-					insertNode(1, newNode);
-					drawNode(g , rX + X , rY + 80 * Y , Integer.toString(newNode));
-					sleep(timeSleep);
-				}else {
-					throw new Exception();
+			int newNode = Integer.parseInt(Values);
+			if(newNode > 0 && newNode <= 999) {
+				int rX = WIDTH /2;
+				int rY = HEIGHT / 40;
+				X = 0;
+				Y = 0;
+				insertNode(1, newNode);
+				drawNode(g , rX + X , rY + 80 * Y , Integer.toString(newNode));
+				sleep(timeSleep);
+			}else {
+				throw new Exception();
 				}
 			}catch(Exception e2){
 				JOptionPane.showMessageDialog(null,"Please enter value");
 			}
     		
- 			update();
+ 		update();
          }
     	if(e.getSource() == SymTable.operButton.SkewedRight){
     		int [] a = new int[numberNode];
@@ -162,26 +163,25 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
     			a[i] = Integer.parseInt(nodeValue[i]);
     		}
     		_Sort.Increase(a);
-   
- 			for (int i = 0; i < numberNode; i++) {
- 				try {
- 					int newNode = a[i];
- 					if(newNode > 0 && newNode <= 999) {
- 						int rX = WIDTH /2;
- 						int rY = HEIGHT / 40;
- 						X = 0;
- 						Y = 0;
- 						insertNode(1, newNode);
- 						drawNode(g , rX + X , rY + 80 * Y , Integer.toString(newNode));
- 						sleep(timeSleep);
- 					}else {
- 						throw new Exception();
- 						}
+   		for (int i = 0; i < numberNode; i++) {
+ 			try {
+ 				int newNode = a[i];
+ 				if(newNode > 0 && newNode <= 999) {
+ 					int rX = WIDTH /2;
+					int rY = HEIGHT / 40;
+ 					X = 0;
+ 					Y = 0;
+ 					insertNode(1, newNode);
+ 					drawNode(g , rX + X , rY + 80 * Y , Integer.toString(newNode));
+ 					sleep(timeSleep);
+				}else {
+ 					throw new Exception();
+ 					}
  				}catch(Exception e2){
                  	JOptionPane.showMessageDialog(null,"Please enter values");
  				}
-             }
- 			update();
+            	 }
+ 		update();
         	
         }
     	if(e.getSource() == SymTable.operButton.SkewedLeft){
@@ -190,25 +190,25 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
     			a[i] = Integer.parseInt(nodeValue[i]);
     		}
     		_Sort.Decrease(a);
- 			for (int i = 0; i < numberNode; i++) {
- 				try {
- 					int newNode = a[i];
- 					if(newNode > 0 && newNode <= 999) {
- 						int rX = WIDTH /2;
- 						int rY = HEIGHT / 40;
- 						X = 0;
- 						Y = 0;
- 						insertNode(1, newNode);
- 						drawNode(g , rX + X , rY + 80 * Y , Integer.toString(newNode));
- 						sleep(timeSleep);
- 					}else {
- 						throw new Exception();
- 						}
- 				}catch(Exception e2){
-                 	JOptionPane.showMessageDialog(null,"Please enter values");
+ 		for (int i = 0; i < numberNode; i++) {
+ 			try {
+ 				int newNode = a[i];
+ 				if(newNode > 0 && newNode <= 999) {
+ 					int rX = WIDTH /2;
+ 					int rY = HEIGHT / 40;
+ 					X = 0;
+					Y = 0;
+ 					insertNode(1, newNode);
+ 					drawNode(g , rX + X , rY + 80 * Y , Integer.toString(newNode));
+ 					sleep(timeSleep);
+ 				}else {
+ 					throw new Exception();
+ 					}
+ 			}catch(Exception e2){
+                 		JOptionPane.showMessageDialog(null,"Please enter values");
  				}
-             }
- 			update();
+            	}
+ 		update();
         	
         }
     	if(e.getSource() == SymTable.operButton.Lecture){
@@ -217,11 +217,11 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
         //Delete
         if(e.getSource() == SymTable.operButton.Delete){
         	//bat dau tu nut root xem xet lan luot phan tu voi gia tri can xoa
-			for (int i = 0; i < numberNode; i++) {
-				int newNode = Integer.parseInt(nodeValue[i]);
-				deleteNode(1, newNode);
+		for (int i = 0; i < numberNode; i++) {
+			int newNode = Integer.parseInt(nodeValue[i]);
+			deleteNode(1, newNode);
         	}
-			update();
+		update();
         }
         //Find
         if(e.getSource() ==SymTable._SearchItem.SelectSearch) {
