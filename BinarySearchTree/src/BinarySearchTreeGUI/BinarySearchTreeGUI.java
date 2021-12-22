@@ -157,10 +157,11 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
     		
  			update();
          }
-    	
+    	/*
     	if(e.getSource() == SymTable.operButton.Lecture){
     		new LectureNote();
     	}
+	*/
         //Delete
         if(e.getSource() == SymTable.operButton.Delete){
         	//bat dau tu nut root xem xet lan luot phan tu voi gia tri can xoa
