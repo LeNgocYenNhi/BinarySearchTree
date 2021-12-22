@@ -7,7 +7,7 @@ public class Button {
 	private int X, Y;
 	private int WIDTH, HEIGHT;
 	private Color BG_COLOR= new Color(65, 136, 218);
-	private Font _Font = new Font("NewellsHand", Font.PLAIN, 20);
+	private Font _Font = new Font("NewellsHand", Font.PLAIN, 18);
 	
 	public Button() {
 		

@@ -5,26 +5,29 @@ import javax.swing.JPanel;
 
 
 public class OperationButton extends Button {
-	JButton Create = new JButton(), Random = new JButton(),  Insert = new JButton(),
-			SkewedRight = new JButton(), SkewedLeft = new JButton(), Delete = new JButton();
+	JButton Create = new JButton(), Insert = new JButton(),Lecture = new JButton(), Delete = new JButton();
 	
-	JButton Buttons[] = {Create, Random, Insert, Delete, SkewedRight, SkewedLeft};
+	JButton Buttons[] = {Create, Insert, Delete, Lecture};
 	JPanel ButtonPanel = new JPanel();
 	public OperationButton() {
 		creatOperationButton();
 	}
 	public void creatOperationButton() {
 		Create.setText("Create");
-		Random.setText("Random");
 		Insert.setText("Insert");
 		Delete.setText("Delete");
-		SkewedRight.setText("SkewedRight");
-		SkewedLeft.setText("SkwedLeft");
+		Lecture.setText("Lecture");
 		
+		int X_Label = 510, Y_Label = 5;
+		int WIDTH_Label = 105, HEIGHT_Label = 35;
 		for(JButton button: Buttons) {
+			button.setFont(get_Font());
+			//button.setForeground(Color.WHITE);
 			button.setBackground(getBG_COLOR());
-			//button.setFont(get_Font());
+			button.setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
+			X_Label += 115;
 		}
+		
 		
 	}
 

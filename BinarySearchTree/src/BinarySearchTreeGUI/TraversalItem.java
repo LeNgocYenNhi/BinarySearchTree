@@ -10,7 +10,9 @@ public class TraversalItem extends Button {
 		SelectTraversal = new JComboBox<String>(items);
 		SelectTraversal.setSelectedIndex(0);
 		SelectTraversal.setBackground(getBG_COLOR());
-		
+		SelectTraversal.setFont(get_Font());
+		SelectTraversal.setBounds(970, 5, 105, 35);
+
 		
 	}
 

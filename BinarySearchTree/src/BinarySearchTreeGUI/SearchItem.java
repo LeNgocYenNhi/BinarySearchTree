@@ -10,7 +10,8 @@ public class SearchItem extends Button {
 		SelectSearch = new JComboBox<String>(items);
 		SelectSearch.setSelectedIndex(0);
 		SelectSearch.setBackground(getBG_COLOR());
-		
+		SelectSearch.setBounds(280, 5, 105, 35);
+		SelectSearch.setFont(get_Font());
 		
 	}
 
