@@ -11,7 +11,7 @@ public class RandomSelection extends Button {
 		Selected = new JComboBox<String>(items);
 		Selected.setSelectedIndex(0);
 		Selected.setBackground(getBG_COLOR());
-		Selected.setBounds(395, 5, 105, 35);
+		Selected.setBounds(395, 5, 105, 32);
 		Selected.setFont(get_Font());
 	}
 	

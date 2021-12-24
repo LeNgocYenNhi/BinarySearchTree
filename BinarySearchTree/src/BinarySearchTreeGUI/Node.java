@@ -1,13 +1,13 @@
 package BinarySearchTreeGUI;
 
 public class Node {
-	
 	private int Value;
 	private int X = 0;
 	private int Y = 0;
-	
+
 	Node(int value) {
 		this.Value = value;
+		
 	}
 
 	public int getValue() {
@@ -33,5 +33,6 @@ public class Node {
 	public void setY(int y) {
 		Y = y;
 	}
+
 
 }

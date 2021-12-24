@@ -1,20 +1,13 @@
 package BinarySearchTree;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
 
 public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySearchTreeInterface<T> {
 	T[] tree;
 	int n = 0;
 	int defaultsize = 1000;
 	int lastIndex = -1;
-	static final int COUNT = 10;
+	String file = "";
 	
 	public ArrayBinarySearchTree()  {
 		tree = (T[]) new Comparable[defaultsize];
@@ -496,25 +489,7 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 		return 2 * p + 1;
 	}
 	
-	public void writeFile(T value, int space, FileWriter write) throws IOException{
-		if (value == null) {
-			return;
-		}
-		space+=COUNT;
-		writeFile(right(value), space, write);
-		write.write(" ");
-		for (int i = COUNT; i < space; i++) {
-			write.write(" ");
-		}
-		write.write(value + "\n");
-		
-		writeFile(left(value), space, write);
-	}
-	 
-	 public void writef (int space, FileWriter write) throws IOException {
-		 writeFile(root(), space, write);
-	 }
-
+	
 	 public Iterator<T> iterator() {
 		return null;
 	}
@@ -534,6 +509,33 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 		insert(1, value);
 		
 	}
+	/*
+	public void printText(T p, int level) {
+		if(p == null) {
+			return;
+		}
+		printText(right(p), level + 1);
+		for(int i=0; i < level; i++) {
+			file += "\t";
+		}
+		file += getValue(p)+"\n";
+		printText(left(p), level + 1);
+	}
+	*/
+	/*
+	 *Print tree in file txt
+	 *Change path
+	 */
+	
+	/*public void printFile() throws IOException{
+		file ="";
+		String path = "/C://Users//Asus//eclipse-workspace//OOP//src//hw5_19000283//TestArray.txt";
+		printText(root(),0);
+		FileWriter writer = new FileWriter(path);
+		writer.write(file);
+		writer.close();
+	}
+	*/
 
 	
 	

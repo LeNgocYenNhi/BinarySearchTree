@@ -5,8 +5,6 @@ public class Node<T> {
 	Node<T> Left;
 	Node<T> Right;
 	T Value;
-	int X = 0;
-	int Y = 0;
 	
 	public Node(){
 		Right = null;
@@ -58,21 +56,6 @@ public class Node<T> {
 		Value = value;
 	}
 
-	public int getX() {
-		return X;
-	}
-
-	public void setX(int x) {
-		X = x;
-	}
-
-	public int getY() {
-		return Y;
-	}
-
-	public void setY(int y) {
-		Y = y;
-	}
 	public int getHeight() {
 		int leftHeight = 0;
 		int rightHeight = 0;

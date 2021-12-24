@@ -4,12 +4,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
-
 public class LinkedBinarySearchTree <T extends Comparable<T>> implements BinarySearchTreeInterface<T>{
 	
 	private Node<T> root;
 	private int count = 0;
-	private static final int Length = 0;
+	String File = "";
 	
 	public LinkedBinarySearchTree() {
 		
@@ -372,24 +371,47 @@ public class LinkedBinarySearchTree <T extends Comparable<T>> implements BinaryS
 
 		return postorder(root.Left)+ " "  + postorder(root.Right) + " "+ root.Value;
 	}
-	public void writeFile(Node<T> node, int space, FileWriter write) throws IOException{
-		if (node == null) {
+	public void printTree() {
+		print(root,0);
+	}
+	public void print(Node<T> p, int level) {
+		if(p == null) {
 			return;
 		}
-		space += Length;
-		
-		writeFile(node.Right, space, write);
-		write.write(" ");
-		
-		for (int i = Length; i < space; i++) {
-			write.write(" ");
+		print(p.getRight(), level + 1);
+		for(int i = 0; i < level; i++) {
+			System.out.print("\t");
 		}
-		write.write(node.getValue() + "\n");
-		
-		writeFile(node.getLeft(), space, write);
+		System.out.println(p.getValue());
+		print(p.getLeft(), level + 1);
 	}
-	public void writef(int space, FileWriter write) throws IOException {
-		writeFile(root, space, write);
+	
+
+	
+	public void printText(Node<T> p, int level) {
+		if(p == null) {
+			return;
+		}
+		printText(p.getRight(), level + 1);
+		for(int i = 0; i < level; i++) {
+			File +="\t";
+		}
+		File += p.getValue()+"\n";
+		printText(p.getLeft(), level + 1);
 	}
+	
+	/*
+	 *Print tree in file
+	 *Change path
+	 */
+	public void printFile() throws IOException{
+		File="";
+		String path = "/C://Users//Asus//eclipse-workspace//BinarySearchTree//src//BinarySearchTree//TestLinkedBinarySearchTree.txt";
+		printText(root, 0);
+		FileWriter writer = new FileWriter(path);
+		writer.write(File);
+		writer.close();
+	}
+	
 
 }

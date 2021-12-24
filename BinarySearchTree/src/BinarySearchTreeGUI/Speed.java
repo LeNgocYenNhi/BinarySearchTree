@@ -3,7 +3,6 @@ package BinarySearchTreeGUI;
 import javax.swing.JComboBox;
 
 public class Speed extends Button{
-	
 	JComboBox<String> _Speed;
 	int timeSleep;
 	
@@ -12,10 +11,9 @@ public class Speed extends Button{
 		_Speed = new JComboBox<String>(items);
 		_Speed.setSelectedIndex(1);
 		_Speed.setBackground(getBG_COLOR());
-		_Speed.setBounds(1085, 5, 105, 35);
+		_Speed.setBounds(1085, 5, 105, 32);
 		_Speed.setFont(get_Font());
 	}
-	
 	public int timeSleeping() {
 		String speed = (String) _Speed.getSelectedItem();
     	switch(speed) {
@@ -30,4 +28,5 @@ public class Speed extends Button{
     	}
     	return timeSleep;
 	}
+
 }
