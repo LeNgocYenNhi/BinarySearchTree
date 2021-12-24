@@ -17,10 +17,10 @@ import javax.swing.JTextArea;
 public class LectureNote implements ItemListener{
 	JFrame frame;
 	String [] items = {"1. Binary search tree", 
-						"2. Insert", "     2-1. Insert time complexity", 
-						"3. Delete", "     3-1. Delete node leaf", "     3-2. Delete node has 1 child", "     3-3. Delete node has 2 child", 
-						"4. Find", "     4-1. Min and Max",
-						"5. Inorder traversal", "     5-1. Inorder traversal time complexity"};
+			   "2. Insert", "     2-1. Insert time complexity", 
+			   "3. Delete", "     3-1. Delete node leaf", "     3-2. Delete node has 1 child", "     3-3. Delete node has 2 child", 
+			   "4. Find", "     4-1. Min and Max",
+			   "5. Inorder traversal", "     5-1. Inorder traversal time complexity"};
 	
 	JComboBox<String> ListLecture = new JComboBox();
 	
@@ -66,7 +66,7 @@ public class LectureNote implements ItemListener{
     // main class
     public static void main(String[] args) {
 
-        new JComBoBoxExample();
+        new LectureNote();
     }
 
 	@Override
