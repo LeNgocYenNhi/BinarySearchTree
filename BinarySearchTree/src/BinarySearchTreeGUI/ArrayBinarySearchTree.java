@@ -6,7 +6,7 @@ public class ArrayBinarySearchTree {
 	int defaultsize = 1000;
 	int lastIndex = -1;
 	//size ve do lon vong tron cua 1 node
-    public final int size = 30;
+    public final int size = 35;
     public ArrayBinarySearchTree() {
     	BST = (Node[]) new Comparable[defaultsize];
 		n = 0;
@@ -54,5 +54,7 @@ public class ArrayBinarySearchTree {
         }
     
     }
+
+    
 
 }
