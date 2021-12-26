@@ -2,35 +2,26 @@ package BinarySearchTreeGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.awt.*;
 import javax.swing.*;
 
 public class QuizExample  implements ActionListener {
-	String[] questions = 	{
-			"Which company created Java?",
-			"Which year was Java created?",
-			"What was Java originally called?",
-			"Who is credited with creating Java?"
-	};
-	String[][] options = 	{
-			{"Sun Microsystems","Starbucks","Microsoft","Alphabet"},
-			{"1989","1996","1972","1492"},
-			{"Apple","Latte","Oak","Koffing"},
-			{"Steve Jobs","Bill Gates","James Gosling","Mark Zuckerburg"}
-	};
-	char[] answers = 		{
-			'A',
-			'B',
-			'C',
-			'C'
-	};
+	String [] Question = new String [5];
+	
+	String [][] Answer = new String [5][4];
+	
+	String [] Correct = new String [5];
+	
 	char guess;
-	char answer;
+	String answer;
 	int Index;
-	int CorrectAnswer =0;
-	int Total = questions.length;
-	int result;
-	int time =10;
+	int CorrectAnswer = 0;
+	int Total = 5;
+	int Result;
+	int Time = 10;
 
 	JFrame frame = new JFrame();
 	
@@ -53,26 +44,28 @@ public class QuizExample  implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			time -= 1;
-			seconds_left.setText(String.valueOf(time));
-			if(time <= 0) {
+			Time -= 1;
+			seconds_left.setText(String.valueOf(Time));
+			if(Time <= 0) {
 				displayAnswer();
 			}
 		}
 	});
 
-	public QuizExample() {
+	public QuizExample() throws FileNotFoundException {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(650,650);
-		frame.getContentPane().setBackground(new Color(50,50,50));
+		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setLayout(null);
 		frame.setResizable(false);
 
-
+		addQuestion();
+		addAnswer();
+		addCorrect();
 		textarea.setBounds(0,50,650,50);
 		textarea.setLineWrap(true);
 		textarea.setWrapStyleWord(true);
-		textarea.setBackground(new Color(25,25,25));
+		textarea.setBackground(Color.BLACK);
 		textarea.setForeground(new Color(25,255,0));
 		textarea.setFont(new Font("MV Boli",Font.BOLD,25));
 		textarea.setBorder(BorderFactory.createBevelBorder(1));
@@ -107,11 +100,12 @@ public class QuizExample  implements ActionListener {
 		seconds_left.setBorder(BorderFactory.createBevelBorder(1));
 		seconds_left.setOpaque(true);
 		seconds_left.setHorizontalAlignment(JTextField.CENTER);
-		seconds_left.setText(String.valueOf(time));
+		seconds_left.setText(String.valueOf(Time));
 
 		
 		number_right.setBounds(225,225,200,100);
-		number_right.setBackground(new Color(25,25,25));
+		//number_right.setBackground(new Color(25,25,25));
+		number_right.setBackground(Color.WHITE);
 		number_right.setForeground(new Color(25,255,0));
 		number_right.setFont(new Font("Ink Free",Font.BOLD,50));
 		number_right.setBorder(BorderFactory.createBevelBorder(1));
@@ -139,10 +133,10 @@ public class QuizExample  implements ActionListener {
 			results();
 		}
 		else {
-			textarea.setText(questions[Index]);
+			textarea.setText(Question[Index]);
 			int i = 0;
 			for(JLabel label: Labels) {
-				label.setText(options[Index][i]);
+				label.setText(Answer[Index][i]);
 				i += 1;
 			}
 			
@@ -156,26 +150,26 @@ public class QuizExample  implements ActionListener {
 			button.setEnabled(false);
 		}
 		if(e.getSource()== ButtonA) {
-			answer= 'A';
-			if(answer == answers[Index]) {
+			answer= "A";
+			if(answer.equals(Correct[Index])) {
 				CorrectAnswer += 1 ;
 			}
 		}
 		if(e.getSource() == ButtonB) {
-			answer= 'B';
-			if(answer == answers[Index]) {
+			answer= "B";
+			if(answer.equals(Correct[Index])) {
 				CorrectAnswer += 1;
 			}
 		}
 		if(e.getSource() == ButtonC) {
-			answer= 'C';
-			if(answer == answers[Index]) {
+			answer= "C";
+			if(answer.equals(Correct[Index])) {
 				CorrectAnswer += 1;
 			}
 		}
 		if(e.getSource() == ButtonD) {
-			answer= 'D';
-			if(answer == answers[Index]) {
+			answer= "D";
+			if(answer.equals(Correct[Index])) {
 				CorrectAnswer += 1;
 			}
 		}
@@ -190,14 +184,14 @@ public class QuizExample  implements ActionListener {
 		ButtonC.setEnabled(false);
 		ButtonD.setEnabled(false);
 
-		if(answers[Index] != 'A')
-			AnswerA.setForeground(new Color(255,0,0));
-		if(answers[Index] != 'B')
-			AnswerB.setForeground(new Color(255,0,0));
-		if(answers[Index] != 'C')
-			AnswerC.setForeground(new Color(255,0,0));
-		if(answers[Index] != 'D')
-			AnswerD.setForeground(new Color(255,0,0));
+		if(Correct[Index] != "A")
+			AnswerA.setForeground(Color.RED);
+		if(Correct[Index] != "B")
+			AnswerB.setForeground(Color.RED);
+		if(Correct[Index] != "C")
+			AnswerC.setForeground(Color.RED);
+		if(Correct[Index] != "D")
+			AnswerD.setForeground(Color.RED);
 
 		Timer pause = new Timer(2000, new ActionListener() {
 
@@ -205,16 +199,15 @@ public class QuizExample  implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				
 				for(JLabel label: Labels) {
-					label.setForeground(new Color(25,255,0));
+					label.setForeground(Color.BLUE);
 				}
 
-				answer = ' ';
-				time = 10;
-				seconds_left.setText(String.valueOf(time));
-				ButtonA.setEnabled(true);
-				ButtonB.setEnabled(true);
-				ButtonC.setEnabled(true);
-				ButtonD.setEnabled(true);
+				answer = " ";
+				Time = 10;
+				seconds_left.setText(String.valueOf(Time));
+				for(JButton button: Buttons) {
+					button.setEnabled(true);
+				}
 				Index += 1;
 				nextQuestion();
 			}
@@ -228,7 +221,7 @@ public class QuizExample  implements ActionListener {
 			button.setEnabled(false);
 		}
 
-		result = (int)((CorrectAnswer/(double) Total)*100);
+		Result = (int)((CorrectAnswer/(double) Total) *100);
 
 		textarea.setText("");
 		for(JLabel label: Labels) {
@@ -236,15 +229,59 @@ public class QuizExample  implements ActionListener {
 		}
 		
 		number_right.setText("("+ CorrectAnswer +"/"+ Total +")");
-		percentage.setText(result+"%");
+		percentage.setText(Result + "%");
 
 		frame.add(number_right);
 		frame.add(percentage);
 
 	}
-	public static void main(String[] args) {
-
+	public void addQuestion() throws FileNotFoundException {
+		try {
+		      int i = 0;
+		      File myObj = new File("text/Question.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        Question[i] = data;
+		        i += 1;
+		      }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+	}
+	public void addCorrect() throws FileNotFoundException {
+		try {
+			int i = 0;
+			File myObj = new File("text/Correct.txt");
+			Scanner myReader = new Scanner(myObj);
+			while (myReader.hasNextLine()) {
+				String data = myReader.nextLine();
+				Correct[i] = data;
+				i += 1;
+			}
+			myReader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	}
+	public void addAnswer() throws FileNotFoundException {
+		File myObj = new File("text/Answer.txt");
+		Scanner myReader = new Scanner(myObj);
+		for(int i = 0; i < 5; i++) {
+			for(int j = 0; j < 4; j++) {
+				String data = myReader.nextLine();
+				Answer[i][j] = data;
+			}
+		}
+		myReader.close();
+	}
+	public static void main(String[] args) throws FileNotFoundException  {
+		
 		QuizExample quiz = new QuizExample();
+		
 	}
 
 }
