@@ -1,5 +1,7 @@
 package BinarySearchTreeGUI;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -27,7 +29,7 @@ public class OperationButton extends Button {
 		int WIDTH_Label = 105, HEIGHT_Label = 32;
 		for(JButton button: Buttons) {
 			button.setFont(get_Font());
-			//button.setForeground(Color.WHITE);
+			button.setForeground(Color.WHITE);
 			button.setBackground(getBG_COLOR());
 			button.setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
 			X_Label += 115;

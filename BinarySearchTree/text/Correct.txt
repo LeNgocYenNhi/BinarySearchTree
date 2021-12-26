@@ -1,0 +1,5 @@
+A.   O(n) for all
+B.   Inorder
+B.   14
+B.   5
+C.   O(log n)

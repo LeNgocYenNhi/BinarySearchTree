@@ -1,0 +1,5 @@
+In skewed Binary Search Tree (BST), all three operations can take O(n).
+Inorder traversal of a BST outputs data in sorted order.
+14
+2nCn/(n+1) = 6C3/4 = 5
+The average height of a Binary Search tree is log(n)

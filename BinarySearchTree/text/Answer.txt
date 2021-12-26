@@ -1,0 +1,20 @@
+A.   O(n) for all
+B.   O(Logn) for all
+C.   O(Logn) for search and insert, and O(n) for delete
+D.   O(Logn) for search, and O(n) for insert and delete
+A.   Preorder
+B.   Inorder
+C.   Postorder
+D.   Level order
+A.   4
+B.   14
+C.   24
+D.   42
+A.   4
+B.   5
+C.   6
+D.   9
+A.   O(n^(1/2))
+B.   O(n)
+C.   O(log n)
+D.   O(n log n)

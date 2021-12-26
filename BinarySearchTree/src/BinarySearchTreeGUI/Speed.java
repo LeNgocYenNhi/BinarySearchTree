@@ -1,5 +1,7 @@
 package BinarySearchTreeGUI;
 
+import java.awt.Color;
+
 import javax.swing.JComboBox;
 
 public class Speed extends Button{
@@ -11,6 +13,7 @@ public class Speed extends Button{
 		_Speed = new JComboBox<String>(items);
 		_Speed.setSelectedIndex(1);
 		_Speed.setBackground(getBG_COLOR());
+		_Speed.setForeground(Color.WHITE);
 		_Speed.setBounds(1085, 5, 105, 32);
 		_Speed.setFont(get_Font());
 	}

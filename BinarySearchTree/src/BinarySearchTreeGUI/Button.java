@@ -6,7 +6,7 @@ import java.awt.Font;
 public class Button {
 	private int X, Y;
 	private int WIDTH, HEIGHT;
-	private Color BG_COLOR= new Color(65, 136, 218);
+	private Color BG_COLOR= new Color(66, 111, 66);
 	private Font _Font = new Font("NewellsHand", Font.PLAIN, 18);
 	
 	public Button() {

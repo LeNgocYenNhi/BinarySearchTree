@@ -2,9 +2,7 @@ package BinarySearchTreeGUI;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -15,7 +13,7 @@ public class Pseudocode {
 	JPanel PseudocodeMinPanel = new JPanel();
 	JPanel PseudocodeFindPanel = new JPanel();
 	JPanel PseudocodeDeletePanel = new JPanel();
-	Border border = BorderFactory.createLineBorder(Color.WHITE);
+	Border border = BorderFactory.createLineBorder(new Color(240, 255, 240));
 
 	JTextField[] InsLines = {
 			new JTextField("if node is null"),
@@ -55,14 +53,6 @@ public class Pseudocode {
 			new JTextField("bypass v"),
 			new JTextField("else replace v with successor")};
 	
-	JTextField[] DelLines = {
-			new JTextField("if node is null"),
-			new JTextField("return null"),
-			new JTextField("else"),
-			new JTextField("if value is less than node"),
-			new JTextField("recurse left"),
-			new JTextField("else"),
-			new JTextField("recurse right") };
 
 	public Pseudocode() {
 		initLines();
@@ -80,18 +70,12 @@ public class Pseudocode {
 			InsLines[i].setBorder(border);
 			InsLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
 			InsLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
-			InsLines[i].setForeground(Color.WHITE);
+			InsLines[i].setForeground(new Color(240, 255, 240));
+			InsLines[i].setBackground(new Color(240, 255, 240));
 			PseudocodeInsertPanel.add(InsLines[i]);
 			Y_Label += 35;
 		}
 
-		for (int i = 0; i < DelLines.length; i++) {
-			DelLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
-			DelLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
-			DelLines[i].setForeground(Color.WHITE);
-			PseudocodePanel.add(DelLines[i]);
-			Y_Label += 30;
-		}
 	}
 	public void MinLines() {
 		int X_Label = 1100, Y_Label = 600;
@@ -99,8 +83,9 @@ public class Pseudocode {
 		for (int i = 0; i < MinLines.length; i++) {
 			MinLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
 			MinLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
-			MinLines[i].setForeground(Color.WHITE);
+			MinLines[i].setForeground(new Color(240, 255, 240));
 			MinLines[i].setBorder(border);
+			MinLines[i].setBackground(new Color(240, 255, 240));
 			PseudocodeMinPanel.add(MinLines[i]);
 			Y_Label += 35;
 		}
@@ -112,7 +97,8 @@ public class Pseudocode {
 			MaxLines[i].setBorder(border);
 			MaxLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
 			MaxLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
-			MaxLines[i].setForeground(Color.WHITE);
+			MaxLines[i].setForeground(new Color(240, 255, 240));
+			MaxLines[i].setBackground(new Color(240, 255, 240));
 			PseudocodeMinPanel.add(MaxLines[i]);
 			Y_Label += 35;
 		}
@@ -124,7 +110,8 @@ public class Pseudocode {
 			FindLines[i].setBorder(border);
 			FindLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
 			FindLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
-			FindLines[i].setForeground(Color.WHITE);
+			FindLines[i].setForeground(new Color(240, 255, 240));
+			FindLines[i].setBackground(new Color(240, 255, 240));
 			PseudocodeMinPanel.add(FindLines[i]);
 			Y_Label += 35;
 		}
@@ -137,7 +124,8 @@ public class Pseudocode {
 			DeleteLines[i].setBorder(border);
 			DeleteLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
 			DeleteLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
-			DeleteLines[i].setForeground(Color.WHITE);
+			DeleteLines[i].setForeground(new Color(240, 255, 240));
+			DeleteLines[i].setBackground(new Color(240, 255, 240));
 			PseudocodeDeletePanel.add(DeleteLines[i]);
 			Y_Label += 35;
 		}
@@ -204,16 +192,6 @@ public class Pseudocode {
 			FindLines[i].setForeground(Color.WHITE);
 		}
 	}
-	public void DelVisible() {
-		for (int i = 0; i < DelLines.length; i++) {
-			DelLines[i].setForeground(Color.BLACK);
-		}
-	}
-
-	public void DelInvisible() {
-		for (int i = 0; i < DelLines.length; i++) {
-			DelLines[i].setForeground(Color.WHITE);
-		}
-	}
+	
 
 }

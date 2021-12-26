@@ -63,7 +63,7 @@ public class Traversal extends Button{
 		int WIDTH_Label = 120, HEIGHT_Label = 40;
 		for(JLabel label: Labels) {
 			label.setFont(get_Font());
-			label.setForeground(new Color(65, 136, 218));
+			label.setForeground(new Color(66, 111, 66));
 			label.setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
 			//label.setBackground(Color.GREEN);
 			//label.setOpaque(true);

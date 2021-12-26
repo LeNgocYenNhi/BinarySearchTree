@@ -41,7 +41,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 	public Pseudocode Pseudo = new Pseudocode();
 	public OperationButton Button = new OperationButton();
 	public Speed _Speed = new Speed();
-	//JPanel mainPanel = new JPanel(new GridLayout(1, 1));
+
 	JPanel mainPanel = new JPanel();
 	JPanel treePanel = new JPanel();
 
@@ -90,9 +90,10 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		add(mainPanel);
 		mainPanel.add(treePanel);
 		treePanel.setBounds(0, 0, 1400, 800);
-		treePanel.setBackground(Color.WHITE);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		treePanel.setBackground(new Color(240, 255, 240));
 		Traver.BST = BST;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
@@ -295,7 +296,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 			}
 			if (newNode > 0 && newNode <= 999) {
 				deleteNode(1, newNode);
-				for (JTextField line : Pseudo.DelLines) {
+				for (JTextField line : Pseudo.DeleteLines) {
 					line.setForeground(Color.BLACK);
 				}
 			} else {
@@ -505,6 +506,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 			circle(index,Color.ORANGE, Color.BLACK);
 			//TH1: Nut khong co con (xoa nut la)
 			if(BST[left(index)].getValue() <= 0 && BST[right(index)].getValue() <= 0) {
+				Pseudo.DeleteLines[0].setForeground(Color.BLACK);
 				Pseudo.DeleteLines[1].setForeground(Color.RED);
 				sleep(timeSleep / 2);
 				Pseudo.DeleteLines[1].setForeground(Color.BLACK);
@@ -519,6 +521,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 				// Neu node xoa chi co con phai
 				if(BST[(left(index))].getValue() <= 0 && BST[(right(index))].getValue() > 0){
 					insertAgain = bfsPath(right(index));
+					Pseudo.DeleteLines[0].setForeground(Color.BLACK);
 					Pseudo.DeleteLines[3].setForeground(Color.RED);
 					sleep(timeSleep / 2);
 					Pseudo.DeleteLines[3].setForeground(Color.BLACK);
@@ -529,6 +532,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 				//Neu node xoa chi co con trai
 				else if(BST[(left(index))].getValue() > 0 && BST[(right(index))].getValue() <= 0) {
 					insertAgain = bfsPath(left(index));
+					Pseudo.DeleteLines[0].setForeground(Color.BLACK);
 					Pseudo.DeleteLines[3].setForeground(Color.RED);
 					sleep(timeSleep / 2);
 					Pseudo.DeleteLines[3].setForeground(Color.BLACK);
@@ -538,11 +542,12 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 				}else {
 					//Neu node xoa co du hai con trai va phai
 					//Tim nut co gia tri lon nhat cua cay con trai (nut cuoi cung ben phai)
-					while(BST[(right(current))].getValue() > 0){
+					Pseudo.DeleteLines[0].setForeground(Color.BLACK);
+					Pseudo.DeleteLines[5].setForeground(Color.RED);
+					sleep(timeSleep / 2);
+					Pseudo.DeleteLines[5].setForeground(Color.BLACK);
+					while(BST[(right(current))].getValue() > 0 && BST[(left(current))].getValue() > 0){
 						//nut duoc duyet bao mau xanh
-						Pseudo.DeleteLines[5].setForeground(Color.RED);
-						sleep(timeSleep / 2);
-						Pseudo.DeleteLines[5].setForeground(Color.BLACK);
 						circle(index, Color.BLUE, Color.BLACK);
 						current = right(current);
 					}
@@ -706,6 +711,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		if (lastIndex != -1) {
 			// Set do rong cua duong thang
 			graph.setStroke(new BasicStroke(2));
+			//graph.setColor(Color.ORANGE);
 			int parPos = parent(lastIndex);
 			graph.drawLine(BST[parPos].getX() - 37 / 2, BST[parPos].getY() + 37,
 					BST[lastIndex].getX() - 37 / 2, BST[lastIndex].getY());
@@ -719,7 +725,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		}
 		Graphics2D g = (Graphics2D) treePanel.getGraphics();
 		g.setStroke(new BasicStroke(2));
-        g.setColor(Color.BLACK);
+		g.setColor(Color.BLACK);
         //drawLine(x1, y1, x2, y2) ve duong thang noi giua hai diem co toa do (x1, y1) (x2, y2)
       	g.drawLine(BST[i].getX() -  37 / 2 , BST[i].getY() + 37 , BST[j].getX() - 37 / 2 , BST[j].getY());
 	}
@@ -733,7 +739,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 		Graphics2D g = (Graphics2D)treePanel.getGraphics();
 		g.setColor(g.getBackground());
 		g.setStroke(new BasicStroke(2));
-		g.setColor(Color.WHITE);
+		g.setColor(new Color(240, 255, 240));
 		g.fillOval(BST[i].getX() - size, BST[i].getY() , 35, 35);
 	    g.drawOval(BST[i].getX() - 35, BST[i].getY() ,35, 35);
 	    g.drawLine(BST[parent(i)].getX() - 37 / 2 , BST[parent(i)].getY() + 37, BST[i].getX() - 37 / 2 , BST[i].getY());
