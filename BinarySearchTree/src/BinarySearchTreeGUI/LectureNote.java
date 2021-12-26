@@ -12,11 +12,19 @@ import javax.swing.JTextArea;
 
 public class LectureNote implements ItemListener{
 	JFrame frame;
+<<<<<<< HEAD
 	String [] items = {"1. Binary search tree", "     1-1. BST Property", "     1-2. BST Node Attributes",
 					   "2. Insert", "     2-1. Insert time complexity", 
 					   "3. Delete", "     3-1. Delete node leaf", "     3-2. Delete node has 1 child", "     3-3. Delete node has 2 child", 
 					   "4. Find", "     4-1. Min and Max",
 					   "5. Traversal", "     5-1. Inorder Traversal", "     5-2. Preorder Traversal", "     5-3. Postorder Traversal"};
+=======
+	String [] items = {"1. Binary search tree", 
+			   "2. Insert", "     2-1. Insert time complexity", 
+			   "3. Delete", "     3-1. Delete node leaf", "     3-2. Delete node has 1 child", "     3-3. Delete node has 2 child", 
+			   "4. Find", "     4-1. Min and Max",
+			   "5. Inorder traversal", "     5-1. Inorder traversal time complexity"};
+>>>>>>> be8c7062fe0b9e632273482b1ba6f41eaa6d1daf
 	
 	JComboBox<String> ListLecture = new JComboBox<String>();
 	
