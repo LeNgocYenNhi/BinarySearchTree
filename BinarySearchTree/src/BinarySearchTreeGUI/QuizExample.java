@@ -13,10 +13,10 @@ public class QuizExample  implements ActionListener {
 	
 	String [][] Answer = new String [5][4];
 	
-	String [] Correct = new String [5];
+	char [] Correct = new char [5];
 	
-	char guess;
-	String answer;
+	
+	char answer;
 	int Index;
 	int CorrectAnswer = 0;
 	int Total = 5;
@@ -150,26 +150,26 @@ public class QuizExample  implements ActionListener {
 			button.setEnabled(false);
 		}
 		if(e.getSource()== ButtonA) {
-			answer= "A";
-			if(answer.equals(Correct[Index])) {
+			answer= 'A';
+			if(answer == (Correct[Index])) {
 				CorrectAnswer += 1 ;
 			}
 		}
 		if(e.getSource() == ButtonB) {
-			answer= "B";
-			if(answer.equals(Correct[Index])) {
+			answer= 'B';
+			if(answer ==Correct[Index]) {
 				CorrectAnswer += 1;
 			}
 		}
 		if(e.getSource() == ButtonC) {
-			answer= "C";
-			if(answer.equals(Correct[Index])) {
+			answer= 'C';
+			if(answer == Correct[Index]) {
 				CorrectAnswer += 1;
 			}
 		}
 		if(e.getSource() == ButtonD) {
-			answer= "D";
-			if(answer.equals(Correct[Index])) {
+			answer= 'D';
+			if(answer == Correct[Index]) {
 				CorrectAnswer += 1;
 			}
 		}
@@ -183,14 +183,16 @@ public class QuizExample  implements ActionListener {
 		ButtonB.setEnabled(false);
 		ButtonC.setEnabled(false);
 		ButtonD.setEnabled(false);
+		
+		//Khong phai dap an dung thi chuyen sang mau do
 
-		if(Correct[Index] != "A")
+		if(Correct[Index] !=  'A')
 			AnswerA.setForeground(Color.RED);
-		if(Correct[Index] != "B")
+		if(Correct[Index] != 'B')
 			AnswerB.setForeground(Color.RED);
-		if(Correct[Index] != "C")
+		if(Correct[Index] != 'C')
 			AnswerC.setForeground(Color.RED);
-		if(Correct[Index] != "D")
+		if(Correct[Index] != 'D')
 			AnswerD.setForeground(Color.RED);
 
 		Timer pause = new Timer(2000, new ActionListener() {
@@ -199,10 +201,10 @@ public class QuizExample  implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				
 				for(JLabel label: Labels) {
-					label.setForeground(Color.BLUE);
+					label.setForeground(Color.GREEN);
 				}
 
-				answer = " ";
+				answer = ' ';
 				Time = 10;
 				seconds_left.setText(String.valueOf(Time));
 				for(JButton button: Buttons) {
@@ -252,20 +254,14 @@ public class QuizExample  implements ActionListener {
 		    }
 	}
 	public void addCorrect() throws FileNotFoundException {
-		try {
-			int i = 0;
-			File myObj = new File("text/Correct.txt");
-			Scanner myReader = new Scanner(myObj);
-			while (myReader.hasNextLine()) {
-				String data = myReader.nextLine();
-				Correct[i] = data;
-				i += 1;
+		File myObj = new File("text/Correct.txt");
+		Scanner myReader = new Scanner(myObj);
+		for(int i = 0; i < 5; i++) {
+			char c = myReader.next().charAt(0);  
+			Correct[i] = c;
+			System.out.print(Correct[i]);
 			}
-			myReader.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
+		
 	}
 	public void addAnswer() throws FileNotFoundException {
 		File myObj = new File("text/Answer.txt");
