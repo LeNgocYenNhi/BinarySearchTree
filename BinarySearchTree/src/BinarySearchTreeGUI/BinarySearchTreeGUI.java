@@ -43,7 +43,7 @@ public class BinarySearchTreeGUI extends JFrame implements ActionListener {
 	JPanel Tree = new JPanel();
 
 	public BinarySearchTreeGUI() {
-		setSize(1400, 800);
+	setSize(1400, 800);
         WIDTH = 1400;
         HEIGHT = 800;
         
