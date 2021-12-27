@@ -1,1 +1,1 @@
-# BinarySearchTree
+# Binary search tree visualization
