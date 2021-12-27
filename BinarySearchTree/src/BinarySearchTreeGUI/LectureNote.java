@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.FileNotFoundException;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -15,8 +16,9 @@ public class LectureNote implements ItemListener{
 	String [] items = {"1. Binary search tree", "     1-1. BST Property", "     1-2. BST Node Attributes",
 					   "2. Insert", 
 					   "3. Delete", "     3-1. Delete node leaf", "     3-2. Delete node has 1 child", "     3-3. Delete node has 2 child", 
-					   "4. Find", "     4-1. Find Min", "     4-1. Find Max",
-					   "5. Traversal", "     5-1. Inorder Traversal", "     5-2. Preorder Traversal", "     5-3. Postorder Traversal"};
+					   "4. Find", "     4-1. Find Min", "     4-2. Find Max",
+					   "5. Traversal", "     5-1. Inorder Traversal", "     5-2. Preorder Traversal", "     5-3. Postorder Traversal",
+					   "6. Quiz"};
 	
 	JComboBox<String> ListLecture = new JComboBox<String>();
 	
@@ -29,15 +31,17 @@ public class LectureNote implements ItemListener{
 	public LectureNote() {
 		frame = new JFrame("Lecture Note");
 		frame.setLayout(null);
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setSize(800, 580);
+		frame.getContentPane().setBackground(new Color(240, 255,240));
+		frame.setSize(740, 590);
 		
 		ListLecture = new JComboBox<String>(items);
 		ListLecture.setBounds(200, 10, 400, 35);
+		ListLecture.setFont(new Font("NewellsHand", Font.PLAIN, 18));
 		ListLecture.setBackground(new Color(66, 111, 66));
 		ListLecture.setForeground(Color.WHITE);
 		ListLecture.setSelectedIndex(0);
 		ListLecture.addItemListener((ItemListener) this);
+		
 		
 		ListLecture.setFocusable(false);
 		TextLecture = " A Binary Search Tree (BST) is a binary tree in which each node has only up to 2 children that satisfies.\r\n"
@@ -51,25 +55,26 @@ public class LectureNote implements ItemListener{
 		PathIcon = "images/Introduction.png";
 		
 		Text.setText(TextLecture);
+		Text.setEditable(false);
+		
 
         Image.setIcon(new ImageIcon(PathIcon));
 		
         frame.add(ListLecture);
         
-        Text.setBounds(20, 55, 750, 150);
-        Image.setBounds(180, 220, 400, 280);
+        Text.setBounds(10, 55, 710, 180);
+        Image.setBounds(200, 240, 400, 300);
         Image.setHorizontalAlignment(JLabel.CENTER);
         
-        /*
-        
         Image.setOpaque(true);
-        Image.setBackground(Color.GREEN);
-        
-        */
+       // Image.setBackground(Color.GREEN);
+        Image.setBackground(new Color(240, 255,240));
         
         frame.add(Text);
         frame.add(Image);
-        Text.setFont(new Font("NewellsHand", Font.PLAIN, 14));
+        Text.setFont(new Font("SERIF", Font.PLAIN, 17));
+        
+        Text.setBackground(new Color(240, 255,240));
         
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,11 +137,19 @@ public class LectureNote implements ItemListener{
 			break;
 		case "     5-3. Postorder Traversal":
 			PostorderTraversal();
-		
+			break;
+		case "6. Quiz":
+			try {
+				new Quiz();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		}
 		
 		Text.setLineWrap(true);
+		Text.setWrapStyleWord(true);
         Text.setText(TextLecture);
         Image.setIcon(new ImageIcon(PathIcon));
        
@@ -170,12 +183,14 @@ public class LectureNote implements ItemListener{
 				+ " The parent of a node (except root) is drawn above that node.\r\n"
 				+ "\r\n"
 				+ "The (integer) key of each node is drawn inside the circle that represent that node.";
-		PathIcon = null;
+		PathIcon = "images/NodeAttribute.png";
 	}
 	public void InsertLecture() {
-		TextLecture = "We can insert a new integer into BST by doing similar operation as Search(v).\r\n"
+		TextLecture = "The data structure must be modified in such a way that the properties of BST continue to hold \r\n"
 				+ "\r\n"
-				+ "We create a new vertex in the insertion point and put the new integer there";
+				+ "We create a new vertex in the insertion point and put the new integer there. \r\n"
+				+"\r\n"
+				+"Running time: O(h).";
 		PathIcon = "images/Insert.png";
 	}
 	
@@ -208,11 +223,11 @@ public class LectureNote implements ItemListener{
 		PathIcon = "images/Delete2.png";
 	}
 	public void DeleteLecture3() {
-		TextLecture = "Vertex v is an (internal/root) vertex of the BST and it has exactly two children. Removing v without doing anything else will disconnect the BST.\r\n"
+		TextLecture = "Vertex v is an (internal/root) vertex of the BST and it has exactly two children.\r\n"
 				+ "\r\n"
-				+ "We replace that vertex with its successor, then delete its duplicated successor in its right subtree. \r\n"
+				+ "We replace that vertex with its predecessor, then delete its duplicated predecessor in its left subtree. \r\n"
 				+ "\r\n"
-				+ "This part requires O(h) due to the need to find the successor vertex — on top of the earlier O(h) search-like effort.";
+				+ "Running time: O(h)";
 		PathIcon = "images/Delete3.png";
 		
 	}
@@ -224,44 +239,52 @@ public class LectureNote implements ItemListener{
 				+ "We then go to the right subtree/stop/go the left subtree, respectively. \r\n"
 				+ "\r\n"
 				+ "We keep doing this until we either find the required node or we don't. \r\n";
-		PathIcon = null;
+		PathIcon = "images/Find.png";
 	}
 	public void FindMin() {
-		TextLecture = "We can find the minimum element by starting from root and keep going to the left.";
+		TextLecture = "Traverse the node from root to left recursively until left is NULL.\r\n"
+				+"\r\n"
+				+ "The node whose left is NULL is the node with minimum value. \r\n"
+				+"\r\n"
+				+"Running time: O(h).";
 		PathIcon = "images/Min.png";		
 	}
 	public void FindMax() {
-		TextLecture = "We can find the maximum element by starting from root and keep going to the right subtree.";
+		TextLecture = "Just traverse the node from root to right recursively until the right is NULL. \r\n "
+				+ "\r\n"
+				+ "The node whose right is NULL is the node with the maximum value. \r\n"
+				+"\r\n"
+				+"Running time: O(h)";
 		PathIcon = "images/Max.png";		
 	}
 	public void InorderTraversal() {
-		TextLecture = "We can perform an Inorder Traversal of this BST to obtain a list of sorted integers inside this BST.\r\n"
+		TextLecture = "Inorder traversal gives nodes in non-decreasing order. Inorder Traversal method:\r\n"
 				+ "\r\n"
-				+ "Inorder Traversal is a recursive method whereby we visit the left subtree first, \r\n"
+				+ "     +  We visit the left subtree first, exhausts all items in the left subtree \r\n"
 				+ "\r\n"
-				+ "exhausts all items in the left subtree, \r\n"
+				+ "     +  Visit the current root, \r\n"
 				+ "\r\n"
-				+ "visit the current root, \r\n"
-				+ "\r\n"
-				+ "before exploring the right subtree and all items in the right subtree.";
+				+ "     +  Exploring the right subtree and all items in the right subtree.";
 		PathIcon = "images/Inorder.png";
 	}
 	public void PreorderTraversal() {
-		TextLecture = "In this traversal method, the root node is visited first, \r\n "
+		TextLecture = "Preorder traversal method: \r\n"
 				+"\r\n"
-				+ "then the left subtree \r\n"
+				+ "     +  The root node is visited first \r\n "
 				+"\r\n"
-				+ "finally the right subtree.";
+				+ "     +  Then the left subtree \r\n"
+				+"\r\n"
+				+ "     +  Finally the right subtree.";
 		PathIcon = "images/Preorder.png";
 	}
 	public void PostorderTraversal() {
-		TextLecture = "In this traversal method, the root node is visited last, hence the name. \r\n"
+		TextLecture = "Postorder traversal method: \r\n"
 				+"\r\n"
-				+ "First we traverse the left subtree, \r\n"
+				+ "     + First we traverse the left subtree, \r\n"
 				+"\r\n"
-				+ "then the right subtree \r\n"
+				+ "     + Then the right subtree \r\n"
 				+"\r\n"
-				+ "finally the root node.";
+				+ "     + Finally the root node.";
 		PathIcon = "images/Postorder.png";
 	}
 	

@@ -1,5 +1,3 @@
-1. What is the worst case time complexity for search, insert and delete operations in a general Binary Search Tree?
-2. Which of the following traversal outputs the data in sorted order in a BST? 
-3. How many distinct binary search trees can be created out of 4 distinct keys ?
-4. How many distinct BSTs can be constructed with 3 distinct keys?
-5. The average depth of a binary search tree is?
+The MAXIMUM number of nodes in a BST with h = 5?
+The traversal outputs the data in sorted order in a BST? 
+The average depth of a BST is?

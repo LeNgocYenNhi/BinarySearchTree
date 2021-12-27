@@ -1,19 +1,11 @@
-O(n) for all
-O(Logn) for all
-O(Logn) for search and insert, and O(n) for delete
-O(Logn) for search, and O(n) for insert and delete
+63
+64
+32
+31
 Preorder
 Inorder
 Postorder
 Level order
-4
-14
-24
-42
-4
-5
-6
-9
 O(n^(1/2))
 O(n)
 O(log n)

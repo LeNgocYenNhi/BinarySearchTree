@@ -50,12 +50,12 @@ public class Pseudocode {
 			new JTextField("if v is a leaf"),
 			new JTextField("delete a leaf"),
 			new JTextField("else if v has 1 child"),
-			new JTextField("bypass v"),
-			new JTextField("else replace v with successor")};
+			new JTextField("by pass v"),
+			new JTextField("else replace v with predecessor")};
 	
 
 	public Pseudocode() {
-		initLines();
+		InsertLines();
 		MinLines();
 		MaxLines();
 		FindLines();
@@ -63,135 +63,94 @@ public class Pseudocode {
 		
 	}
 
-	public void initLines() {
-		int X_Label = 1100, Y_Label = 500;
-		int WIDTH_Label = 315, HEIGHT_Label = 30;
+	public void InsertLines() {
+		int X_TextField = 1100, Y_TextField = 500;
+		int WIDTH_TextField = 315, HEIGHT_TextField= 30;
 		for (int i = 0; i < InsLines.length; i++) {
 			InsLines[i].setBorder(border);
-			InsLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
-			InsLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
+			InsLines[i].setBounds(X_TextField, Y_TextField, WIDTH_TextField , HEIGHT_TextField );
+			InsLines[i].setFont(new Font("NewellsHand", Font.BOLD, 18));
 			InsLines[i].setForeground(new Color(240, 255, 240));
 			InsLines[i].setBackground(new Color(240, 255, 240));
 			PseudocodeInsertPanel.add(InsLines[i]);
-			Y_Label += 35;
+			InsLines[i].setEditable(false);
+			Y_TextField  += 35;
 		}
 
 	}
 	public void MinLines() {
-		int X_Label = 1100, Y_Label = 600;
-		int WIDTH_Label = 315, HEIGHT_Label = 30;
+		int X_TextField = 1100, Y_TextField = 600;
+		int WIDTH_TextField = 315, HEIGHT_TextField= 30;
 		for (int i = 0; i < MinLines.length; i++) {
-			MinLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
-			MinLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
+			MinLines[i].setBounds(X_TextField, Y_TextField, WIDTH_TextField, HEIGHT_TextField);
+			MinLines[i].setFont(new Font("NewellsHand", Font.BOLD, 18));
 			MinLines[i].setForeground(new Color(240, 255, 240));
 			MinLines[i].setBorder(border);
 			MinLines[i].setBackground(new Color(240, 255, 240));
+			MinLines[i].setEditable(false);
 			PseudocodeMinPanel.add(MinLines[i]);
-			Y_Label += 35;
+			Y_TextField += 40;
 		}
 	}
 	public void MaxLines() {
-		int X_Label = 1100, Y_Label = 600;
-		int WIDTH_Label = 315, HEIGHT_Label = 30;
+		int X_TextField = 1100, Y_TextField = 600;
+		int WIDTH_TextField = 315, HEIGHT_TextField= 30;
 		for (int i = 0; i < MaxLines.length; i++) {
 			MaxLines[i].setBorder(border);
-			MaxLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
-			MaxLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
+			MaxLines[i].setBounds(X_TextField, Y_TextField, WIDTH_TextField, HEIGHT_TextField);
+			MaxLines[i].setFont(new Font("NewellsHand", Font.BOLD, 18));
 			MaxLines[i].setForeground(new Color(240, 255, 240));
 			MaxLines[i].setBackground(new Color(240, 255, 240));
+			MaxLines[i].setEditable(false);
 			PseudocodeMinPanel.add(MaxLines[i]);
-			Y_Label += 35;
+			Y_TextField += 40;
 		}
 	}
 	public void FindLines() {
-		int X_Label = 1100, Y_Label = 500;
-		int WIDTH_Label = 315, HEIGHT_Label = 30;
+		int X_TextField = 1050, Y_TextField = 500;
+		int WIDTH_TextField = 315, HEIGHT_TextField= 30;
 		for (int i = 0; i < FindLines.length; i++) {
 			FindLines[i].setBorder(border);
-			FindLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
-			FindLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
+			FindLines[i].setBounds(X_TextField, Y_TextField, WIDTH_TextField, HEIGHT_TextField);
+			FindLines[i].setFont(new Font("NewellsHand", Font.BOLD, 18));
 			FindLines[i].setForeground(new Color(240, 255, 240));
 			FindLines[i].setBackground(new Color(240, 255, 240));
+			FindLines[i].setEditable(false);
 			PseudocodeMinPanel.add(FindLines[i]);
-			Y_Label += 35;
+			Y_TextField += 35;
 		}
 	}
 	
 	public void deleteLines() {
-		int X_Label = 1100, Y_Label = 500;
-		int WIDTH_Label = 315, HEIGHT_Label = 30;
+		int X_TextField = 1050, Y_TextField = 540;
+		int WIDTH_TextField = 315, HEIGHT_TextField= 30;
 		for (int i = 0; i < DeleteLines.length; i++) {
 			DeleteLines[i].setBorder(border);
-			DeleteLines[i].setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
-			DeleteLines[i].setFont(new Font("NewellsHand", Font.BOLD, 15));
+			DeleteLines[i].setBounds(X_TextField, Y_TextField, WIDTH_TextField, HEIGHT_TextField);
+			DeleteLines[i].setFont(new Font("NewellsHand", Font.BOLD, 18));
 			DeleteLines[i].setForeground(new Color(240, 255, 240));
 			DeleteLines[i].setBackground(new Color(240, 255, 240));
+			DeleteLines[i].setEditable(false);
 			PseudocodeDeletePanel.add(DeleteLines[i]);
-			Y_Label += 35;
+			Y_TextField += 35;
 		}
 		
 	}
 	
-
-	public void InsVisible() {
-		for (int i = 0; i < InsLines.length; i++) {
-			InsLines[i].setForeground(Color.BLACK);
+	
+	public void Visible(JTextField [] textfield) {
+		for (int i = 0; i < textfield.length; i++) {
+			textfield[i].setForeground(Color.BLACK);
 		}
 	}
 
-	public void InsInvisible() {
-		for (int i = 0; i < InsLines.length; i++) {
-			InsLines[i].setForeground(Color.WHITE);
+	public void Invisible(JTextField [] textfield) {
+		for (int i = 0; i < textfield.length; i++) {
+			textfield[i].setForeground(new Color(240, 255, 240));
 		}
 		
 	}
 	
-	public void DeleteVisible() {
-		for (int i = 0; i < DeleteLines.length; i++) {
-			DeleteLines[i].setForeground(Color.BLACK);
-		}
-	}
-
-	public void DeleteInvisible() {
-		for (int i = 0; i < DeleteLines.length; i++) {
-			DeleteLines[i].setForeground(Color.WHITE);
-		}
-		
-	}
-	
-	public void MinVisible() {
-		for (int i = 0; i < MinLines.length; i++) {
-			MinLines[i].setForeground(Color.BLACK);
-		}
-	}
-
-	public void MinInvisible() {
-		for (int i = 0; i < MinLines.length; i++) {
-			MinLines[i].setForeground(Color.WHITE);
-		}
-	}
-	public void MaxVisible() {
-		for (int i = 0; i < MaxLines.length; i++) {
-			MaxLines[i].setForeground(Color.BLACK);
-		}
-	}
-
-	public void MaxInvisible() {
-		for (int i = 0; i < MaxLines.length; i++) {
-			MaxLines[i].setForeground(Color.WHITE);
-		}
-	}
-	public void FindVisible() {
-		for (int i = 0; i < FindLines.length; i++) {
-			FindLines[i].setForeground(Color.BLACK);
-		}
-	}
-
-	public void FindInvisible() {
-		for (int i = 0; i < FindLines.length; i++) {
-			FindLines[i].setForeground(Color.WHITE);
-		}
-	}
 	
 
 }

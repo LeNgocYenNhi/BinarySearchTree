@@ -406,7 +406,7 @@ public class LinkedBinarySearchTree <T extends Comparable<T>> implements BinaryS
 	 */
 	public void printFile() throws IOException{
 		File="";
-		String path = "/C://Users//Asus//eclipse-workspace//BinarySearchTree//src//BinarySearchTree//TestLinkedBinarySearchTree.txt";
+		String path = "src/BinarySearchTree/TestLinkedBinarySearchTree.txt";
 		printText(root, 0);
 		FileWriter writer = new FileWriter(path);
 		writer.write(File);

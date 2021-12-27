@@ -1,5 +1,7 @@
 package BinarySearchTree;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 
 public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySearchTreeInterface<T> {
@@ -123,110 +125,21 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 		}
 		
 	}
-	/*
-	public void deleteNode(int index ,T Value) {
-		if(getValue(index) == null) {
-			return;
-		}
-		//step1
-		//gia tri xoa lon hon gia tri cua node i => xet cay con phai
-		if(Value.compareTo(getValue(index)) > 0) {
-			deleteNode(right(index), Value);
-		}else if(Value.compareTo(getValue(index)) < 0){ //Neu gia tri xoa be hon gia tri cua node i => xet cay con trai
-			deleteNode(left(index), Value);
-		}
-		//step 3
-		// nut xet bang gia tri can xoa
-		else {
-			n -= 1;
-			if(getValue(left(index)) == null && getValue(right(index)) == null) {
-				tree[index] = null;
-			}else {
-				//TH2: Nut co con
-				String insertAgain;
-				int current = left(index);
-				// Neu node xoa chi co con phai
-				if(getValue(left(index)) == null && getValue(right(index)) != null){
-					insertAgain = bfsPath(right(index));
-				}
-				//Neu node xoa chi co con trai
-				else if(getValue(left(index)) != null && getValue(right(index)) == null ) {
-					insertAgain = bfsPath(left(index));
-				}else {
-					//Neu node xoa co du hai con trai va phai
-					//Tim nut co gia tri lon nhat cua cay con trai (nut cuoi cung ben phai)
-					while(getValue(right(current)) != null) {
-						//nut duoc duyet bao mau cam
-						current = right(current);
-					}
 
-					//gan lai gia tri cho nut moi
-					tree[index] = tree[current];
-					lastIndex = -1;
-					
-					if(getValue(left(current)) != null)
-						insertAgain = bfsPath(left(current));
-					else
-						insertAgain ="";
-				}
-				Scanner scan = new Scanner(insertAgain);
-				if((getValue(left(index)) == null && getValue(right(index)) != null|| 
-						(getValue(left(index))  != null && getValue(right(index)) == null))) {
-					deleteTree(index);
-				}
-				else {
-					deleteTree(current);
-				}
-				
-			}
-		}
-	}
-	public void deleteTree(int i){
-		Queue<Integer> nextNode = new LinkedList<>();
-		nextNode.add(i);
-		while(!nextNode.isEmpty()){
-			if(getValue(left(nextNode.peek())) != null) {
-				nextNode.add(left(nextNode.peek()));
-			}
-		    if(getValue(right(nextNode.peek())) != null ) {
-		    	nextNode.add(right(nextNode.peek()));
-		    }
-		    tree[nextNode.peek()] = null;
-		    nextNode.remove(nextNode.peek());
-		}
-		        
-	}
-	public String bfsPath(int i) {
-		String s ="";
-		Queue<Integer> queue = new LinkedList<>();
-		queue.add(i);
-		while(!queue.isEmpty()) {
-			n += 1;
-			s += getValue(queue.peek()) +" ";
-			if(getValue(left(queue.peek())) != null) {
-				queue.add(left(queue.peek()));
-			}
-			if(getValue(right(queue.peek())) != null) {
-				queue.add(right(queue.peek()));
-			}
-			queue.remove(queue.peek());
-		}
-		return s;
-	}
-*/
 	public int[] findDelete(T value) {
 		int[] indices = new int[2];
 		boolean found = false;
 		int c = 1; // Child
 		int p = 1; // Parent
-		while (c < tree.length && tree[c] != null) { //ket thuc khi duyet het mang hoac tim thay vale
-			if (value.compareTo(tree[c]) < 0) { //du lieu duoc tim kiem nho hon du lieu co trong mang
+		//ket thuc khi duyet het mang hoac tim thay value
+		while (c < tree.length && tree[c] != null) { 
+			if (value.compareTo(tree[c]) < 0) {			//Gia tri tim kiem nho hon
 				p = c;
-				//di chuyen sang phia ben trai cua cay
+				//Xet cay con trai
 				c = (2 * c); 
 			}else if (value.compareTo(tree[c]) > 0) {
 				p = c;
-				// di chuyen sang phia ben phai cua cay
+				//Xet cay con phai
 				c = (2 * c) + 1; 
 			}else {
 				found = true;
@@ -242,53 +155,54 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 		}
 	}
 	
-	public void deleteNoChlid(int child_index) {
-		tree[child_index] = null;
+	public void deleteLeaf(int IndexChild) {
+		tree[IndexChild] = null;
 	}
 	
-	public void delOneChild(int child_index, int left, int right) {
-		if (tree[right] == null) { // một con ở bên trái
-			//Vị trí sẽ bị xóa được thay thế bằng nút bên trái ngay lập tức
-			tree[child_index] = tree[left]; 
+	public void deleteOneChild(int ChildIndex, int Left, int Right) {
+		//Cay chi co con trai
+		if (tree[Right] == null) { 
+			//Vi tri xoa se duoc thay the bang nut con ben trai
+			tree[ChildIndex] = tree[Left]; 
 			//Một biến được sử dụng để lưu trữ phía bên phải của nút bên trái ngay lập tức
-			int right_temp = (2*left) + 1;
+			int tempRight = 2 * Left + 1;
 			//Một biến được sử dụng để lưu trữ phía bên trai của nút bên trái ngay lập tức
-			int left_temp = (2*left) ;
-			while (right_temp < tree.length && left_temp < tree.length) { // vong lap cho toi khi het cay
+			int tempLeft = 2 * Left ;
+			while (tempRight < tree.length && tempLeft < tree.length) { // vong lap cho toi khi het cay
 				// di chuyen len mot bac o phia ben trai
-				tree[left] = tree[left_temp]; 
+				tree[Left] = tree[tempLeft]; 
 				// cap nhat lai con tro
-				left = left_temp;
+				Left = tempLeft;
 				// d chuyen len mot bac o phia ben phai
-				tree[right] = tree[right_temp];
-				right = right_temp;
+				tree[Right] = tree[tempRight];
+				Right = tempRight;
 				
 				//cap nhat nut ngoai cung cua ben phai
-				right_temp = (2 * right) + 1;
+				tempRight= 2 * Right + 1;
 				// cap nhat lai nut ngoai cung ben trai
-				left_temp = (2 * left);
+				tempLeft = 2 * Left;
 			}
 			
 			// dat cac nut cuoi cung la null vi tat ca cac nut truoc do da tang len mot bac
-			tree[left] = null;
-			tree[right] = null;
+			tree[Left] = null;
+			tree[Right] = null;
 		}
-		 else if (tree[left] == null) { //Mot not con ben phai
-	            tree[child_index] = tree[right]; //Vi tri se bi xoa ngay lap tuc duoc thay the bang nut con ben phai
-	            int right_temp = (2 * right) + 1; // Bien duoc dung de luu tru phia ben phai cua nut ben phai
-	            int left_temp = (2 * right) ; //Bien duoc dung de luu tru phia ben trai cua nut ben phai
-	            while (right_temp < tree.length && left_temp < tree.length) { //duyen toi khi het cay
-	                tree[left] = tree[left_temp]; //di chuyen len mot bac o phia ben trai
-	                left = left_temp; // cap nhat 1 con tro cho phia ben trai
-	                tree[right] = tree[right_temp]; //Di chuyen len mot bac o phia ben phai
-	                right = right_temp; //cap nhat 1 con tro cho phia ben phai
-
-	                right_temp = (2 * right) + 1; //Cap nhat nut ngoai cung ben phai cua ben phai 
-	                left_temp = (2 * left) ; //Cap nhat nut ngoai cung ben trai cua ben trai
-	            }
-	            //Dat tat ca cac nut cuoi cun la null vi cac nut truoc cua no da tang len mot bac
-	            tree[left] = null;
-	            tree[right] = null;
+		//Mot not con ben phai
+		else if (tree[Left] == null) {
+			tree[ChildIndex] = tree[Right]; //Vi tri se bi xoa ngay lap tuc duoc thay the bang nut con ben phai
+	        int right_temp = 2 * Right + 1; // Bien duoc dung de luu tru phia ben phai cua nut ben phai
+	        int left_temp = 2 * Right; //Bien duoc dung de luu tru phia ben trai cua nut ben phai
+	        while (right_temp < tree.length && left_temp < tree.length) { //duyen toi khi het cay
+	        	tree[Left] = tree[left_temp]; //di chuyen len mot bac o phia ben trai
+	            Left = left_temp; // cap nhat 1 con tro cho phia ben trai
+	            tree[Right] = tree[right_temp]; //Di chuyen len mot bac o phia ben phai
+	            Right = right_temp; //cap nhat 1 con tro cho phia ben phai
+	            right_temp = 2 * Right + 1; //Cap nhat nut ngoai cung ben phai cua ben phai 
+	            left_temp = 2 * Left; //Cap nhat nut ngoai cung ben trai cua ben trai
+	       }
+	       //Dat tat ca cac nut cuoi cun la null vi cac nut truoc cua no da tang len mot bac
+	            tree[Left] = null;
+	            tree[Right] = null;
 	        }
 	}
 	
@@ -312,10 +226,10 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 			System.out.printf("\nDeleting " + tree[c] + "\n");
 			// TH khong con
 			if ((right > tree.length || left > tree.length) || (tree[left] == null && tree[right] == null)) {
-				deleteNoChlid(c);
+				deleteLeaf(c);
 			}// TH 1 con
 			else if ((tree[right] == null && tree[left] != null) || (tree[right] != null && tree[left] == null)) {
-				delOneChild(c, left, right);
+				deleteOneChild(c, left, right);
 			}else { // TH 2 con
 				// dich chuyen sang ben phai cua nut se bi xoa
 				int temp = right; 
@@ -331,9 +245,9 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 				right = (2* c) + 1;
 				left = (2 * c);
 				if ((right > tree.length || left > tree.length) || (tree[left] == null && tree[right] == null))  {
-					deleteNoChlid(c);
+					deleteLeaf(c);
 				}else if ((tree[right] == null && tree[left] != null) || (tree[right] != null && tree[left] == null)) {
-					delOneChild(c, left, right);
+					deleteOneChild(c, left, right);
 				}
 			}
 		}
@@ -370,7 +284,7 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 			return 0;
 		}
         
-        return Math.max(height(left(i)) , height(right(i))) + 1;
+        return  1 + Math.max(height(left(i)) , height(right(i)));
 		
 	}
 	
@@ -509,35 +423,5 @@ public class ArrayBinarySearchTree<T extends Comparable<T>> implements BinarySea
 		insert(1, value);
 		
 	}
-	/*
-	public void printText(T p, int level) {
-		if(p == null) {
-			return;
-		}
-		printText(right(p), level + 1);
-		for(int i=0; i < level; i++) {
-			file += "\t";
-		}
-		file += getValue(p)+"\n";
-		printText(left(p), level + 1);
-	}
-	*/
-	/*
-	 *Print tree in file txt
-	 *Change path
-	 */
-	
-	/*public void printFile() throws IOException{
-		file ="";
-		String path = "/C://Users//Asus//eclipse-workspace//OOP//src//hw5_19000283//TestArray.txt";
-		printText(root(),0);
-		FileWriter writer = new FileWriter(path);
-		writer.write(file);
-		writer.close();
-	}
-	*/
-
-	
-	
-	
+		
 }

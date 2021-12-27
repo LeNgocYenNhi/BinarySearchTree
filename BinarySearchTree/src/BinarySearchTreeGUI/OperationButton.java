@@ -1,10 +1,8 @@
 package BinarySearchTreeGUI;
 
 import java.awt.Color;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 
 public class OperationButton extends Button {
 	JButton Insert = new JButton(), Delete = new JButton(), Find = new JButton(), 
@@ -33,6 +31,7 @@ public class OperationButton extends Button {
 			button.setBackground(getBG_COLOR());
 			button.setBounds(X_Label, Y_Label, WIDTH_Label, HEIGHT_Label);
 			X_Label += 115;
+			button.setFocusable(false);
 		}
 		
 	}

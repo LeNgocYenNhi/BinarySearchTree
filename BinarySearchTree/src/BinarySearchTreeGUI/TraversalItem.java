@@ -1,7 +1,6 @@
 package BinarySearchTreeGUI;
 
 import java.awt.Color;
-
 import javax.swing.JComboBox;
 
 public class TraversalItem extends Button {
@@ -15,7 +14,7 @@ public class TraversalItem extends Button {
 		SelectTraversal.setForeground(Color.WHITE);
 		SelectTraversal.setFont(get_Font());
 		SelectTraversal.setBounds(970, 5, 105, 32);
-
+		SelectTraversal.setFocusable(false);
 		
 	}
 
